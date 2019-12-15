@@ -1,1 +1,1 @@
-# PuppetCat
+# Catmint
