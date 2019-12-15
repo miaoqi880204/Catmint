@@ -5,5 +5,5 @@
 
 
 ## 架构设计图
-![avatar](http://q2jqzh8ar.bkt.clouddn.com/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1.png)
+![avatar](http://q2jqzh8ar.bkt.clouddn.com/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1.png-ss)
 
