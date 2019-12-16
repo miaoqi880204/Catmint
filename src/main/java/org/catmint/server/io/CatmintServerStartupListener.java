@@ -27,17 +27,24 @@ public class CatmintServerStartupListener implements Runnable, ApplicationListen
     private static final String PORT_KEY = "org.catmint.server.port";
     private static final String PROPERTIES_NAME = "environmentProperties";
 
-    private int port = 13306;
+    private static final int DEFAULT_PORT = 13306;
+
+    private int port;
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent event) {
+        port = parsePort(event);
+        new Thread(this).start();
+    }
+
+    private int parsePort(ApplicationStartedEvent event) {
         PropertySourcesPlaceholderConfigurer propertyConfig = event.getApplicationContext().getBean(PropertySourcesPlaceholderConfigurer.class);
         PropertySource<?> properties = propertyConfig.getAppliedPropertySources().get(PROPERTIES_NAME);
         Object portValue = properties.getProperty(PORT_KEY);
         if (portValue != null) {
-            port = Integer.parseInt((String) portValue);
+            return Integer.parseInt((String) portValue);
         }
-        new Thread(this).start();
+        return DEFAULT_PORT;
     }
 
     @Override
