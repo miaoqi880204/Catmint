@@ -4,6 +4,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>io</module>
+        <module>core</module>
+        <module>exception</module>
+        <module>monitor</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
