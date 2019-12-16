@@ -1,4 +1,4 @@
-package org.catmint.server.io;
+package org.catmint.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

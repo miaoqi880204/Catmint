@@ -1,6 +1,6 @@
-package org.catmint.server;
+package org.catmint;
 
-import org.catmint.server.io.CatmintServerStartupListener;
+import org.catmint.server.CatmintServerStartupListener;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

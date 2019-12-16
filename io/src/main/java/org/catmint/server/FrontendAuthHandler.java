@@ -1,4 +1,4 @@
-package org.catmint.server.io;
+package org.catmint.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
