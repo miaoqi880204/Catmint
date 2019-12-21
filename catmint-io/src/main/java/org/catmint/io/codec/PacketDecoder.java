@@ -39,7 +39,10 @@ public class PacketDecoder extends ByteToMessageDecoder {
         WrapperPacket packet = new WrapperPacket();
         packet.setPacketLength(packetLength);
         packet.setPacketId(packetId);
-        packet.setData(in.readBytes(packetLength).array());
+        ByteBuf byteBuf = in.readBytes(packetLength);
+        byte[] data = new byte[packetLength];
+        byteBuf.readBytes(data);
+        packet.setData(data);
         out.add(packet);
     }
 }

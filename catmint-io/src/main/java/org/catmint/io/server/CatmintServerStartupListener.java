@@ -1,6 +1,7 @@
 package org.catmint.io.server;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -65,14 +66,16 @@ public class CatmintServerStartupListener implements Runnable, ApplicationListen
                         @Override
                         public void initChannel(SocketChannel channel) {
                             channel.pipeline()
-                                    .addLast(new AuthHandler())
-                                    .addLast(new PacketDecoder());
+                                    .addLast(new PacketDecoder())
+                                    .addLast(new AuthHandler());
                         }
                     })
-                    .option(ChannelOption.SO_BACKLOG, 128)
-                    .childOption(ChannelOption.SO_KEEPALIVE, true);
+                    .option(ChannelOption.SO_BACKLOG, 1024)
+                    .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                    .option(ChannelOption.SO_TIMEOUT, 600);
 
-            ChannelFuture future = bootstrap.bind(port).sync(); // (7)
+            ChannelFuture future = bootstrap.bind(port).sync();
 
             log.info("Catmint Server started on prot: {}", port);
             future.channel().closeFuture().sync();
