@@ -11,5 +11,11 @@
 
     <artifactId>monitor</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.catmint</groupId>
+            <artifactId>core</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

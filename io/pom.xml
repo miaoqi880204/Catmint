@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.catmint</groupId>
-            <artifactId>exception</artifactId>
+            <artifactId>core</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
