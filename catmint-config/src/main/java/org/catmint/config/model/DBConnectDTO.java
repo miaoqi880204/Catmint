@@ -19,7 +19,7 @@ public class DBConnectDTO implements Serializable {
     //需要链接的数据库密码
     private String password;
     //是否ssl协议
-    private String isSsl;
+    private boolean isSsl;
     //需要连接的数据库端口
     private int port;
     //需要连接的数据库ip
