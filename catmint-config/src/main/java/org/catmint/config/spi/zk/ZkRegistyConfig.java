@@ -22,22 +22,25 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ZkRegistyConfig implements ServiceRegistry, Watcher {
     @Autowired
-    private CuratorFramework curatorFramework;
+    private ZkClient zkClient;
 
     @Override
     public void register(DBConnect dbConnect) {
-        try {
-            if (curatorFramework.checkExists().forPath( "/cluster" ) == null) {
-                curatorFramework.create().creatingParentContainersIfNeeded()
-                        .withMode( CreateMode.PERSISTENT )
-                        .withACL( ZooDefs.Ids.OPEN_ACL_UNSAFE )
-                        .forPath( "/cluster" );
+        CuratorFramework curatorFramework = zkClient.getZKClient();
+        if(null != curatorFramework){
+            try {
+                if (curatorFramework.checkExists().forPath( "/cluster" ) == null) {
+                    curatorFramework.create().creatingParentContainersIfNeeded()
+                            .withMode( CreateMode.PERSISTENT )
+                            .withACL( ZooDefs.Ids.OPEN_ACL_UNSAFE )
+                            .forPath( "/cluster" );
+                }
+            } catch (Exception e) {
+                log.error( "zookeeper 初始化失败" );
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            log.error( "zookeeper 初始化失败" );
-            e.printStackTrace();
+            log.info( "zookeeper 初始化成功" );
         }
-        log.info( "zookeeper 初始化成功" );
     }
 
     @Override

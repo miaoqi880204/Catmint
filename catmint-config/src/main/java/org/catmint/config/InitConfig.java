@@ -2,8 +2,6 @@ package org.catmint.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.catmint.config.model.DBConnect;
-import org.catmint.config.spi.zk.ZkRegistyConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ServiceLoader;

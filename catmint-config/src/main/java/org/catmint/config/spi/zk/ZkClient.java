@@ -10,6 +10,7 @@ import org.catmint.config.Constant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
 /**
  * <p>Title:ZK 客户端</p>
@@ -18,14 +19,14 @@ import org.springframework.context.annotation.Configuration;
  * @author QIQI
  * @date
  */
-@Configuration
+@Service
 public class ZkClient {
     private CuratorFramework client;
     @Value("${org.catmint.zk.address:}")
     private String zkAddress;
 
     @Bean
-    public CuratorFramework getZKClient(String zkAddress) {
+    public CuratorFramework getZKClient() {
         if (client != null || "".equals( zkAddress ) ) {
             return null;
         }
