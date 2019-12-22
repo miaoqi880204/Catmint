@@ -22,15 +22,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class InitConfigTest {
     @Autowired
     private InitConfig initConfig;
-    private CatmintConnectConfig dbConnect;
+    private CatmintConnectConfig catmintConnectConfig;
 
     @Before
     public void before(){
-        dbConnect = new CatmintConnectConfig( "admin","123",false,3306,"127.9.9.9",false,"127.0.0.1","999.99.99.99",8799 );
+        catmintConnectConfig = new CatmintConnectConfig( "admin","123",false,3306,"127.9.9.9",false,"127.0.0.1","999.99.99.99",8799 );
     }
 
     @Test
     public void testZKNodeInit(){
-        initConfig.initRegister( dbConnect );
+        initConfig.initRegister( catmintConnectConfig );
     }
 }

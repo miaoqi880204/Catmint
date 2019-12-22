@@ -1,0 +1,2 @@
+org.catmint.config.ServiceRegistry=\
+  org.catmint.config.spi.zk.ZkRegistyConfig
