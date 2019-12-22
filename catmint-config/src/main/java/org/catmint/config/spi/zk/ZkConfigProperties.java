@@ -1,6 +1,7 @@
 package org.catmint.config.spi.zk;
 
 import lombok.Data;
+import org.catmint.config.Constant;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +14,12 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties("org.catmint")
+@ConfigurationProperties(Constant.ZK_PROPERTIES)
 public class ZkConfigProperties {
     private Zk zk;
 
     @Data
-    class Zk{
+    class Zk {
         private String address;
     }
 }

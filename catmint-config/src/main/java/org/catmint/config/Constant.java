@@ -14,4 +14,6 @@ public class Constant {
     public static final int ZOOKEEPER_MAX_RETRIES = 5;
     //连接建立超时时间
     public static final int ZOOKEEPER_CONNECT_TIMEOUT = 10000;
+    public static final String ZK_PROPERTIES = "org.catmint";
+    public static final String ZK_NAMESPACE = "catmint";
 }

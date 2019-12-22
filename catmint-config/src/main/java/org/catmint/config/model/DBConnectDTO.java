@@ -1,6 +1,7 @@
 package org.catmint.config.model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import java.io.Serializable;
 
@@ -15,17 +16,23 @@ import java.io.Serializable;
 public class DBConnectDTO implements Serializable {
     private static final long serialVersionUID = 1463272221164238298L;
     //需要链接的数据库用户名
+    @NonNull
     private String userName;
     //需要链接的数据库密码
+    @NonNull
     private String password;
     //是否ssl协议
-    private boolean isSsl;
+    @NonNull
+    private Boolean isSsl;
     //需要连接的数据库端口
-    private int port;
+    @NonNull
+    private Integer port;
     //需要连接的数据库ip
+    @NonNull
     private String ip;
     //是否使用数据库压缩协议
-    private boolean isCompress;
+    @NonNull
+    private Boolean isCompress;
     //ssl密钥地址
     private String sslSecretKeyPath;
     //ssl证书地址
@@ -33,7 +40,12 @@ public class DBConnectDTO implements Serializable {
     //ssl-ca证书地址
     private String sslCaCertificatePath;
     //客户端ip
+    @NonNull
     private String clientIp;
-    //客户端端口
-    private String clientPort;
+    //服务端本机ip
+    @NonNull
+    private String serverIp;
+    //服务端本机端口，默认8799
+    @NonNull
+    private Integer serverPort;
 }
