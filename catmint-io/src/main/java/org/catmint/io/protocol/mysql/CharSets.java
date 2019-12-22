@@ -1,7 +1,8 @@
 package org.catmint.io.protocol.mysql;
 
 /**
- * MySQL 字符集
+ * MySQL 字符集<br />
+ * <a href="https://dev.mysql.com/doc/internals/en/character-set.html">MySQL 官方文档</a>
  *
  * @author Shuo Xiang
  */

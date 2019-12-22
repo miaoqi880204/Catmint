@@ -21,7 +21,7 @@ public class HandshakePacket extends MySQLPacket {
     private static final byte[] FILLER_10 = new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     public HandshakePacket() {
-        super.setPacketId(DEFAULT_PACKET_ID);
+        super.setSequenceId(DEFAULT_PACKET_ID);
     }
 
     private byte protocolVersion;
@@ -38,7 +38,7 @@ public class HandshakePacket extends MySQLPacket {
         ByteBuf byteBuf = ctx.alloc().buffer();
 
         ByteBufUtils.writeUpper3(byteBuf, calcPacketSize());
-        byteBuf.writeByte(getPacketId());
+        byteBuf.writeByte(getSequenceId());
         byteBuf.writeByte(protocolVersion);
         ByteBufUtils.writeWithNull(byteBuf, serverVersion);
         ByteBufUtils.writeUpper4(byteBuf, connectionId);

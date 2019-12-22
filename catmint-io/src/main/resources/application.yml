@@ -2,3 +2,9 @@ org:
   catmint:
     server:
       port: 13306
+    zk:
+      address: peacock-vm:2181
+logging:
+  level:
+    root: info
+    org.catmint.io: debug

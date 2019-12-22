@@ -33,8 +33,11 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
         HandshakePacket packet = new HandshakePacket();
         packet.setProtocolVersion(Versions.PROTOCOL_VERSION);
         packet.setServerVersion(Versions.SERVER_VERSION);
-        log.info("connection id is {}", ctx.channel().id());
-        packet.setConnectionId(ctx.channel().id().hashCode());  // TODO 获取连接ID
+        int connectionId = ctx.channel().id().hashCode();
+        if (log.isInfoEnabled()) {
+            log.info("connection connectionId [{}] is handshaking", connectionId);
+        }
+        packet.setConnectionId(connectionId);  // TODO 获取连接ID
         packet.setSeedPart1(part1);
         packet.setCapabilities(getServerCapabilities());
         packet.setCharsetId((byte) (CharSets.UTF8.getId() & 0xff));    // TODO 默认 UTF-8
@@ -71,10 +74,14 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        // TODO 鉴权
+        if (log.isInfoEnabled()) {
+            log.info("connection connectionId [{}] authorized", ctx.channel().id().hashCode());
+        }
 
         ctx.pipeline().replace(this, "frontendCommandHandler", new CommandHandler());
 
-        ByteBuf byteBuf = ctx.alloc().buffer().writeBytes(new byte[]{7, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0});
+        ByteBuf byteBuf = ctx.alloc().buffer().writeBytes(OKPacket.AUTH_OK);
         ctx.writeAndFlush(byteBuf);
     }
 }

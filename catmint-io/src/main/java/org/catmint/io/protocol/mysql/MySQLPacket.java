@@ -15,8 +15,8 @@ public abstract class MySQLPacket {
     /** 报文最大字节数 */
     public static final int MAX_PACKET_SIZE = 16 * 1024 * 1024;
 
-    private int packetLength;
-    private byte packetId;
+    private int payloadLength;
+    private byte sequenceId;
 
     /**
      * 计算数据包大小，不包含包头长度

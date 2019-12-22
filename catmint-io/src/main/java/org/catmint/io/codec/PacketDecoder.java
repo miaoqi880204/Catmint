@@ -37,8 +37,8 @@ public class PacketDecoder extends ByteToMessageDecoder {
             return;
         }
         WrapperPacket packet = new WrapperPacket();
-        packet.setPacketLength(packetLength);
-        packet.setPacketId(packetId);
+        packet.setPayloadLength(packetLength);
+        packet.setSequenceId(packetId);
         ByteBuf byteBuf = in.readBytes(packetLength);
         byte[] data = new byte[packetLength];
         byteBuf.readBytes(data);
