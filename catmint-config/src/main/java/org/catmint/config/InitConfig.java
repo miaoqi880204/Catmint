@@ -27,7 +27,7 @@ public class InitConfig {
             serviceRegistries.stream().findFirst().get().register( catmintConnectConfig );
         } else {
             //单机模式
-            log.error( ExceptionEm.STAND_ALONE.getMessage() );
+            log.warn( ExceptionEm.STAND_ALONE.getMessage() );
         }
     }
 }
