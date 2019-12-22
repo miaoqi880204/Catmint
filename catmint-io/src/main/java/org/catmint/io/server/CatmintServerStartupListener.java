@@ -16,8 +16,6 @@ import org.catmint.io.codec.PacketDecoder;
 import org.catmint.io.frontend.handler.AuthHandler;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.PropertySource;
 
 /**
  * Catmint启动监听器
@@ -30,7 +28,6 @@ public class CatmintServerStartupListener implements Runnable, ApplicationListen
 
     // TODO 统一配置
     private static final String PORT_KEY = "org.catmint.server.port";
-    private static final String PROPERTIES_NAME = "environmentProperties";
 
     private static final int DEFAULT_PORT = 13306;
 
@@ -43,11 +40,9 @@ public class CatmintServerStartupListener implements Runnable, ApplicationListen
     }
 
     private int parsePort(ApplicationStartedEvent event) {
-        PropertySourcesPlaceholderConfigurer propertyConfig = event.getApplicationContext().getBean(PropertySourcesPlaceholderConfigurer.class);
-        PropertySource<?> properties = propertyConfig.getAppliedPropertySources().get(PROPERTIES_NAME);
-        Object portValue = properties.getProperty(PORT_KEY);
-        if (portValue != null) {
-            return Integer.parseInt((String) portValue);
+        String port = event.getApplicationContext().getEnvironment().getProperty(PORT_KEY);
+        if (port != null) {
+            return Integer.parseInt(port);
         }
         return DEFAULT_PORT;
     }

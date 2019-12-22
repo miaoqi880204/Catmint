@@ -1,2 +1,6 @@
+org:
+  catmint:
+    server:
+      port: 13306
 logging:
   config: classpath:log4j2.xml
