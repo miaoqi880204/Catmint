@@ -10,7 +10,9 @@ package org.catmint.exception;
  */
 public enum ExceptionEm {
     /** 系统级别异常 */
-    UNSPECIFIED("X1", "xxxx");
+    UNKNOWN("catmint-0", "系统异常"),
+    STAND_ALONE("catmint-1", "当前单机模式执行，未找到可用的注册中心地址"),
+    ZK_INIT_ERROR("catmint-2", "zookeeper 初始化失败");
 
 
     /** 错误码 */

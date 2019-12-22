@@ -2,6 +2,7 @@ package org.catmint.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.catmint.config.model.CatmintConnectConfig;
+import org.catmint.exception.ExceptionEm;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,13 @@ import java.util.List;
 public class InitConfig {
 
     public void initRegister(CatmintConnectConfig catmintConnectConfig) {
-        List<ServiceRegistry> serviceRegistries = SpringFactoriesLoader.loadFactories( ServiceRegistry.class, null );
+        List<ServiceRegistryConfig> serviceRegistries = SpringFactoriesLoader.loadFactories( ServiceRegistryConfig.class, null );
         if (null != serviceRegistries && !serviceRegistries.isEmpty()) {
             //只需要第一个实现被加载执行即可
             serviceRegistries.stream().findFirst().get().register( catmintConnectConfig );
         } else {
             //单机模式
-            log.info( "当前单机模式执行，未找到可用的注册中心地址" );
+            log.error( ExceptionEm.STAND_ALONE.getMessage() );
         }
     }
 }

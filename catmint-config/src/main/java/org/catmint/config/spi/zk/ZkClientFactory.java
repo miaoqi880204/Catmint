@@ -5,7 +5,8 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.catmint.config.Constant;
+import org.catmint.config.ConstantConfig;
+import org.catmint.config.model.ZookeeperConfigEnum;
 
 /**
  * <p>Title:ZK 初始化执行工具</p>
@@ -31,13 +32,13 @@ public class ZkClientFactory {
             return curatorFramework;
         }
         //创建重试策略
-        RetryPolicy retryPolicy = new ExponentialBackoffRetry( Constant.ZOOKEEPER_BASE_SLEEP_TIMEMS, Constant.ZOOKEEPER_MAX_RETRIES );
+        RetryPolicy retryPolicy = new ExponentialBackoffRetry( ConstantConfig.ZOOKEEPER_BASE_SLEEP_TIMEMS, ConstantConfig.ZOOKEEPER_MAX_RETRIES );
         CuratorFramework curatorFramework = CuratorFrameworkFactory.builder()
                 .connectString( ZkParameterInit.ZK_ADDRESS )
-                .sessionTimeoutMs( Constant.ZOOKEEPER_SESSION_TIMEOUT )
-                .connectionTimeoutMs( Constant.ZOOKEEPER_CONNECT_TIMEOUT )
+                .sessionTimeoutMs( ConstantConfig.ZOOKEEPER_SESSION_TIMEOUT )
+                .connectionTimeoutMs( ConstantConfig.ZOOKEEPER_CONNECT_TIMEOUT )
                 .retryPolicy( retryPolicy )
-                .namespace( Constant.ZK_NAMESPACE )
+                .namespace( ZookeeperConfigEnum.ZK_NAMESPACE.getVal() )
                 .build();
         curatorFramework.start();
         return curatorFramework;

@@ -4,8 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
-import org.catmint.config.ServiceRegistry;
+import org.catmint.config.ConfigException;
+import org.catmint.config.ServiceRegistryConfig;
 import org.catmint.config.model.CatmintConnectConfig;
+import org.catmint.config.model.ZookeeperConfigEnum;
+import org.catmint.exception.ExceptionEm;
+import org.catmint.exception.SystemExceptionModel;
 
 /**
  * <p>Title:node-config节点配置信息</p>
@@ -15,13 +19,13 @@ import org.catmint.config.model.CatmintConnectConfig;
  * @date
  */
 @Slf4j
-public class ZkRegistyConfig implements ServiceRegistry {
+public class ZkRegistyConfig implements ServiceRegistryConfig {
 
     @Override
     public void register(CatmintConnectConfig catmintConnectConfig) {
         CuratorFramework curatorFramework = ZkClientFactory.getCuratorFrameworkFactory();
         try {
-            if (curatorFramework.checkExists().forPath( "/cluster" ) == null) {
+            if (curatorFramework.checkExists().forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() ) == null) {
                 curatorFramework.create().creatingParentContainersIfNeeded()
                         .withMode( CreateMode.PERSISTENT )
                         .withACL( ZooDefs.Ids.OPEN_ACL_UNSAFE )
@@ -29,8 +33,7 @@ public class ZkRegistyConfig implements ServiceRegistry {
             }
             log.info( "zookeeper 初始化成功" );
         } catch (Exception e) {
-            log.error( "zookeeper 初始化失败" );
-            e.printStackTrace();
+            throw new ConfigException( new SystemExceptionModel( ExceptionEm.ZK_INIT_ERROR.getCode() ) );
         }
     }
 }

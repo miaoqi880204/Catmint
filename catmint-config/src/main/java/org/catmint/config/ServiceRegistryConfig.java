@@ -9,7 +9,7 @@ import org.catmint.config.model.CatmintConnectConfig;
  * @author QIQI
  * @date
  */
-public interface ServiceRegistry{
+public interface ServiceRegistryConfig {
     /**
     * <p>Title:服务注册接口</p>
     * <p>Description:</p>

@@ -1,7 +1,6 @@
 package org.catmint.exception;
 
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * <p>Title:实现自定义异常message接口</p>
@@ -24,7 +23,7 @@ public class SystemExceptionModel implements ExceptionMessage{
                 return val.getMessage();
             }
         }
-        return ExceptionEm.UNSPECIFIED.getMessage();
+        return ExceptionEm.UNKNOWN.getMessage();
     }
 
     @Override
