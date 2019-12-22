@@ -21,12 +21,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ZkClient {
     private CuratorFramework client;
-    @Value("${org.catmint.zk.address:localhost:2181}")
+    @Value("${org.catmint.zk.address:}")
     private String zkAddress;
 
     @Bean
-    public CuratorFramework getZKClient() {
-        if (client != null || zkAddress == null) {
+    public CuratorFramework getZKClient(String zkAddress) {
+        if (client != null || "".equals( zkAddress ) ) {
             return null;
         }
         //创建重试策略

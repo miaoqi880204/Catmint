@@ -1,5 +1,6 @@
 package org.catmint.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.catmint.config.model.DBConnect;
 import org.catmint.config.spi.zk.ZkRegistyConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +16,19 @@ import java.util.ServiceLoader;
  * @author QIQI
  * @date
  */
+@Slf4j
 @Service
 public class InitConfig {
-    @Autowired
-    private ZkRegistyConfig zkConfig;
 
-    public void initRegister(DBConnect dbConnect){
+    public void initRegister(DBConnect dbConnect) {
         ServiceLoader<ServiceRegistry> nodeConfigs = ServiceLoader.load( ServiceRegistry.class );
-        if(null != nodeConfigs && nodeConfigs.iterator().hasNext()) {
-            for (ServiceRegistry serviceRegistry : nodeConfigs){
+        if (null != nodeConfigs && nodeConfigs.iterator().hasNext()) {
+            for (ServiceRegistry serviceRegistry : nodeConfigs) {
                 serviceRegistry.register( dbConnect );
             }
-        }else{
-            zkConfig.register(dbConnect);
+        } else {
+            //单机模式
+            log.info("当前单机模式执行，未找到可用的注册中心地址");
         }
     }
 }
