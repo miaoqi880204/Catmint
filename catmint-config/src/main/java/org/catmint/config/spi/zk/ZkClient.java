@@ -25,8 +25,8 @@ public class ZkClient {
     private String zkAddress;
 
     @Bean
-    public CuratorFramework getZKClient() throws Exception {
-        if (zkAddress == null) {
+    public CuratorFramework getZKClient() {
+        if (client != null || zkAddress == null) {
             return null;
         }
         //创建重试策略
