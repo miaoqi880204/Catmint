@@ -1,7 +1,7 @@
 package org.catmint.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.catmint.config.model.DBConnect;
+import org.catmint.config.model.CatmintConnectConfig;
 import org.springframework.stereotype.Service;
 
 import java.util.ServiceLoader;
@@ -18,7 +18,7 @@ import java.util.ServiceLoader;
 @Service
 public class InitConfig {
 
-    public void initRegister(DBConnect dbConnect) {
+    public void initRegister(CatmintConnectConfig dbConnect) {
         ServiceLoader<ServiceRegistry> nodeConfigs = ServiceLoader.load( ServiceRegistry.class );
         if (null != nodeConfigs && nodeConfigs.iterator().hasNext()) {
             for (ServiceRegistry serviceRegistry : nodeConfigs) {

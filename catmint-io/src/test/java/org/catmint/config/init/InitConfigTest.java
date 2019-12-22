@@ -2,7 +2,7 @@ package org.catmint.config.init;
 
 import org.catmint.CatmintServerTestApplication;
 import org.catmint.config.InitConfig;
-import org.catmint.config.model.DBConnect;
+import org.catmint.config.model.CatmintConnectConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +22,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class InitConfigTest {
     @Autowired
     private InitConfig initConfig;
-    private DBConnect dbConnect;
+    private CatmintConnectConfig dbConnect;
 
     @Before
     public void before(){
-        dbConnect = new DBConnect( "admin","123",false,3306,"127.9.9.9",false,"127.0.0.1","999.99.99.99",8799 );
+        dbConnect = new CatmintConnectConfig( "admin","123",false,3306,"127.9.9.9",false,"127.0.0.1","999.99.99.99",8799 );
     }
 
     @Test

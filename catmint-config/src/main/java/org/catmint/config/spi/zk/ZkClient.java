@@ -4,12 +4,8 @@ import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.ZooDefs;
 import org.catmint.config.Constant;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,14 +17,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ZkClient {
-    private CuratorFramework client;
+    private static CuratorFramework client;
     @Value("${org.catmint.zk.address:}")
     private String zkAddress;
 
-    @Bean
     public CuratorFramework getZKClient() {
-        if (client != null || "".equals( zkAddress ) ) {
-            return null;
+        if (client != null || "".equals( zkAddress )) {
+            return client;
         }
         //创建重试策略
         RetryPolicy retryPolicy = new ExponentialBackoffRetry( Constant.ZOOKEEPER_BASE_SLEEP_TIMEMS, Constant.ZOOKEEPER_MAX_RETRIES );
@@ -38,7 +33,6 @@ public class ZkClient {
                 .retryPolicy( retryPolicy )
                 .namespace( Constant.ZK_NAMESPACE )
                 .build();
-        client.start();
         return client;
     }
 }

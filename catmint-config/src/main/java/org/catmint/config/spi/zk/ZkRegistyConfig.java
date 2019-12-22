@@ -7,7 +7,7 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
 import org.catmint.config.ServiceRegistry;
-import org.catmint.config.model.DBConnect;
+import org.catmint.config.model.CatmintConnectConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,7 +25,7 @@ public class ZkRegistyConfig implements ServiceRegistry, Watcher {
     private ZkClient zkClient;
 
     @Override
-    public void register(DBConnect dbConnect) {
+    public void register(CatmintConnectConfig dbConnect) {
         CuratorFramework curatorFramework = zkClient.getZKClient();
         if(null != curatorFramework){
             try {
