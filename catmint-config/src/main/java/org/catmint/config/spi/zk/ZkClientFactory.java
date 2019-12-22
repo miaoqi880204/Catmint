@@ -6,7 +6,6 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.catmint.config.Constant;
-import org.springframework.beans.factory.annotation.Value;
 
 /**
  * <p>Title:ZK 初始化执行工具</p>
@@ -15,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @author QIQI
  * @date
  */
-public class ZkClient {
+public class ZkClientFactory {
     private static CuratorFramework curatorFramework = null;
 
     /**

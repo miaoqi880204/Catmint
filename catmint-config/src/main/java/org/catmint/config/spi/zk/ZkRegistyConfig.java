@@ -19,7 +19,7 @@ public class ZkRegistyConfig implements ServiceRegistry {
 
     @Override
     public void register(CatmintConnectConfig catmintConnectConfig) {
-        CuratorFramework curatorFramework = ZkClient.getCuratorFrameworkFactory();
+        CuratorFramework curatorFramework = ZkClientFactory.getCuratorFrameworkFactory();
         try {
             if (curatorFramework.checkExists().forPath( "/cluster" ) == null) {
                 curatorFramework.create().creatingParentContainersIfNeeded()
