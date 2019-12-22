@@ -1,6 +1,6 @@
 package org.catmint.config;
 
-import org.catmint.config.model.DBConnectDTO;
+import org.catmint.config.model.DBConnect;
 import org.catmint.config.spi.zk.ZkRegistyConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,14 +20,14 @@ public class InitConfig {
     @Autowired
     private ZkRegistyConfig zkConfig;
 
-    public void initRegister(DBConnectDTO dbConnectDTO){
+    public void initRegister(DBConnect dbConnect){
         ServiceLoader<ServiceRegistry> nodeConfigs = ServiceLoader.load( ServiceRegistry.class );
         if(null != nodeConfigs && nodeConfigs.iterator().hasNext()) {
             for (ServiceRegistry serviceRegistry : nodeConfigs){
-                serviceRegistry.register( dbConnectDTO );
+                serviceRegistry.register( dbConnect );
             }
         }else{
-            zkConfig.register(dbConnectDTO);
+            zkConfig.register(dbConnect);
         }
     }
 }

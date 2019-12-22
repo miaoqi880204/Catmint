@@ -1,6 +1,6 @@
 package org.catmint.config;
 
-import org.catmint.config.model.DBConnectDTO;
+import org.catmint.config.model.DBConnect;
 
 /**
  * <p>Title:服务注册接口</p>
@@ -19,5 +19,5 @@ public interface ServiceRegistry {
     * @throws 
     * @date 2019-12-21 23:52 
     */
-    void register(DBConnectDTO dbConnectDTO);
+    void register(DBConnect dbConnectDTO);
 }

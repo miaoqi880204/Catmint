@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @date
  */
 @Data
-public class DBConnectDTO implements Serializable {
+public class DBConnect implements Serializable {
     private static final long serialVersionUID = 1463272221164238298L;
     //需要链接的数据库用户名
     @NonNull

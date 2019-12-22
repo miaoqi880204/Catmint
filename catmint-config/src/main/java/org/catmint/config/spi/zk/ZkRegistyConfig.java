@@ -7,7 +7,7 @@ import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
 import org.catmint.config.ServiceRegistry;
-import org.catmint.config.model.DBConnectDTO;
+import org.catmint.config.model.DBConnect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,7 +25,7 @@ public class ZkRegistyConfig implements ServiceRegistry, Watcher {
     private CuratorFramework curatorFramework;
 
     @Override
-    public void register(DBConnectDTO dbConnectDTO) {
+    public void register(DBConnect dbConnect) {
         try {
             if (curatorFramework.checkExists().forPath( "/cluster" ) == null) {
                 curatorFramework.create().creatingParentContainersIfNeeded()
