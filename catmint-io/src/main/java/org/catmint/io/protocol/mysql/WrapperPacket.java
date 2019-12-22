@@ -12,10 +12,5 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class WrapperPacket extends MySQLPacket {
 
-    private byte[] data;
-
-    @Override
-    public int calcPacketSize() {
-        return data == null ? 0 : data.length;
-    }
+    private byte[] payload;
 }

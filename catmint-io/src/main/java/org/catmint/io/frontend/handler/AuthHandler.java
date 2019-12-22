@@ -30,20 +30,18 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
         System.arraycopy(part2, 0, seed, part1.length, part2.length);
         this.seed = seed;
 
-        HandshakePacket packet = new HandshakePacket();
-        packet.setProtocolVersion(Versions.PROTOCOL_VERSION);
-        packet.setServerVersion(Versions.SERVER_VERSION);
         int connectionId = ctx.channel().id().hashCode();
         if (log.isInfoEnabled()) {
             log.info("connection connectionId [{}] is handshaking", connectionId);
         }
-        packet.setConnectionId(connectionId);  // TODO 获取连接ID
-        packet.setSeedPart1(part1);
-        packet.setCapabilities(getServerCapabilities());
-        packet.setCharsetId((byte) (CharSets.UTF8.getId() & 0xff));    // TODO 默认 UTF-8
-        packet.setStatusFlag(StatusFlags.AUTO_COMMIT.getFlag());
-        packet.setSeedPart2(part2);
 
+        HandshakePacket packet = HandshakePacket.builder()
+                .connectionId(connectionId)
+                .seedPart1(part1)
+                .capabilities(getServerCapabilities())
+                .charsetId((byte) (CharSets.UTF8.getId() & 0xff))
+                .seedPart2(part2)
+                .build();
         packet.write(ctx);
     }
 

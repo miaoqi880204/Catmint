@@ -3,10 +3,7 @@ package org.catmint.io.frontend.handler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.message.FormattedMessageFactory;
-import org.apache.logging.log4j.message.Message;
 import org.catmint.io.protocol.mysql.*;
 
 import java.io.UnsupportedEncodingException;
@@ -22,7 +19,7 @@ public class CommandHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         WrapperPacket packet = (WrapperPacket) msg;
-        byte commandId = packet.getData()[0];
+        byte commandId = packet.getPayload()[0];
         if (log.isDebugEnabled()) {
             log.debug("command [{}] received", commandId);
         }
@@ -33,7 +30,7 @@ public class CommandHandler extends ChannelInboundHandlerAdapter {
                 break;
             case COM_QUERY:
                 try {
-                    String sql = new String(packet.getData(), 1, packet.getData().length - 1, CharSets.UTF8.getName());
+                    String sql = new String(packet.getPayload(), 1, packet.getPayload().length - 1, CharSets.UTF8.getName());
                     if (log.isDebugEnabled()) {
                         log.debug("sql [{}] received", sql);
                     }

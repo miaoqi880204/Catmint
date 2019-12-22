@@ -16,12 +16,13 @@ public abstract class MySQLPacket {
     public static final int MAX_PACKET_SIZE = 16 * 1024 * 1024;
 
     private int payloadLength;
+
     private byte sequenceId;
 
-    /**
-     * 计算数据包大小，不包含包头长度
-     *
-     * @return
-     */
-    public abstract int calcPacketSize();
+    public MySQLPacket() {}
+
+    public MySQLPacket(int payloadLength, byte sequenceId) {
+        this.payloadLength = payloadLength;
+        this.sequenceId = sequenceId;
+    }
 }

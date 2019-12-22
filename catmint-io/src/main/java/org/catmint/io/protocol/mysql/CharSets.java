@@ -10,7 +10,6 @@ public enum CharSets {
     BIG5(1, "big5"),
     LATIN1(8, "latin1"),
     LATIN2(9, "latin2"),
-    CP1251(14, "cp1251"),
     GBK(28, "gbk"),
     GB2312(24, "gb2312"),
     UTF8(33, "utf8"),

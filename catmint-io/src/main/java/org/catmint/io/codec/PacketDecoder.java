@@ -42,7 +42,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
         ByteBuf byteBuf = in.readBytes(packetLength);
         byte[] data = new byte[packetLength];
         byteBuf.readBytes(data);
-        packet.setData(data);
+        packet.setPayload(data);
         out.add(packet);
     }
 }
