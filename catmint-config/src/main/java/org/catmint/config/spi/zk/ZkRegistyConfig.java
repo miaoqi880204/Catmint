@@ -4,12 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
-import org.catmint.config.ConfigException;
+import org.catmint.exception.config.ConfigException;
 import org.catmint.config.ServiceRegistryConfig;
 import org.catmint.config.model.CatmintConnectConfig;
 import org.catmint.config.model.ZookeeperConfigEnum;
-import org.catmint.exception.ExceptionEm;
-import org.catmint.exception.SystemExceptionModel;
+import org.catmint.exception.config.ConfigExceptionEm;
+import org.catmint.exception.config.ConfigExceptionMessage;
 
 /**
  * <p>Title:node-config节点配置信息</p>
@@ -33,7 +33,7 @@ public class ZkRegistyConfig implements ServiceRegistryConfig {
             }
             log.info( "zookeeper 初始化成功" );
         } catch (Exception e) {
-            throw new ConfigException( new SystemExceptionModel( ExceptionEm.ZK_INIT_ERROR.getCode() ) );
+            throw new ConfigException( new ConfigExceptionMessage( ConfigExceptionEm.ZK_INIT_ERROR.getMessage() ) );
         }
     }
 }

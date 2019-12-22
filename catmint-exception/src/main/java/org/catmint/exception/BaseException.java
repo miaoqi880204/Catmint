@@ -34,7 +34,7 @@ public class BaseException extends RuntimeException {
      * @date 2019-10-25 14:20
      */
     public BaseException(ExceptionMessage co) {
-        super( co.code() + co.message() );
+        super( co.message() );
         this.exceptionMessage = co;
         co.message();
     }
@@ -51,7 +51,7 @@ public class BaseException extends RuntimeException {
      * @date 2019-10-25 14:20
      */
     public BaseException(ExceptionMessage co, Object...obj) {
-        super( co.code() + MessageFormat.format(co.message(),obj) );
+        super( MessageFormat.format(co.message(),obj) );
         this.exceptionMessage = co;
         co.message();
     }

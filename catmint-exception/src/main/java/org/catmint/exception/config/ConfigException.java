@@ -1,4 +1,4 @@
-package org.catmint.config;
+package org.catmint.exception.config;
 
 import org.catmint.exception.BaseException;
 import org.catmint.exception.ExceptionMessage;
