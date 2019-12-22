@@ -32,10 +32,10 @@ public class ZkRegistyConfig implements ServiceRegistry, Watcher {
                         .withMode( CreateMode.PERSISTENT )
                         .withACL( ZooDefs.Ids.OPEN_ACL_UNSAFE )
                         .forPath( "/cluster" );
-                log.info( "zookeeper初始化成功" );
+                log.info( "zookeeper 初始化成功" );
             }
         } catch (Exception e) {
-            log.error( "zookeeper初始化失败" );
+            log.error( "zookeeper 初始化失败" );
             e.printStackTrace();
         }
     }
