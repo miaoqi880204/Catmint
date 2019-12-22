@@ -22,11 +22,8 @@ public class InitConfig {
     public void initRegister(CatmintConnectConfig catmintConnectConfig) {
         List<ServiceRegistry> serviceRegistries = SpringFactoriesLoader.loadFactories( ServiceRegistry.class, null );
         if (null != serviceRegistries && !serviceRegistries.isEmpty()) {
-            for (ServiceRegistry serviceRegistry : serviceRegistries) {
-                serviceRegistry.register( catmintConnectConfig );
-                //只需要第一个实现被加载执行即可
-                break;
-            }
+            //只需要第一个实现被加载执行即可
+            serviceRegistries.stream().findFirst().get().register( catmintConnectConfig );
         } else {
             //单机模式
             log.info( "当前单机模式执行，未找到可用的注册中心地址" );
