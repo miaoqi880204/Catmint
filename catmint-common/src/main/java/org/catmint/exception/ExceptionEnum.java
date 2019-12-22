@@ -1,4 +1,4 @@
-package org.catmint.exception.config;
+package org.catmint.exception;
 
 
 /**
@@ -8,7 +8,7 @@ package org.catmint.exception.config;
  * @author QIQI
  * @date
  */
-public enum ConfigExceptionEm {
+public enum ExceptionEnum {
     /**
      * 系统级别异常
      */
@@ -20,7 +20,7 @@ public enum ConfigExceptionEm {
      */
     private String message;
 
-    ConfigExceptionEm(String message) {
+    ExceptionEnum(String message) {
         this.message = message;
     }
 

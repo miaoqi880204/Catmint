@@ -22,9 +22,9 @@
     <modules>
         <module>catmint-io</module>
         <module>catmint-core</module>
-        <module>catmint-exception</module>
         <module>catmint-monitor</module>
         <module>catmint-config</module>
+        <module>catmint-common</module>
     </modules>
 
     <dependencyManagement>

@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.catmint</groupId>
-            <artifactId>catmint-exception</artifactId>
+            <artifactId>catmint-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -26,7 +26,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -47,6 +46,11 @@
                     <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-framework</artifactId>
         </dependency>
 
         <dependency>

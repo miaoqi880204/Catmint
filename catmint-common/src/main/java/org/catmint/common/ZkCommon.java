@@ -1,4 +1,4 @@
-package org.catmint.config.spi.zk;
+package org.catmint.common;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.BackgroundCallback;

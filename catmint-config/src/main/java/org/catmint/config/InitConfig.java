@@ -2,7 +2,7 @@ package org.catmint.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.catmint.config.model.CatmintConnectConfig;
-import org.catmint.exception.config.ConfigExceptionEm;
+import org.catmint.exception.ExceptionEnum;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,7 @@ public class InitConfig {
             serviceRegistries.stream().findFirst().get().register( catmintConnectConfig );
         } else {
             //单机模式
-            log.warn( ConfigExceptionEm.STAND_ALONE.getMessage() );
+            log.warn( ExceptionEnum.STAND_ALONE.getMessage() );
         }
     }
 }

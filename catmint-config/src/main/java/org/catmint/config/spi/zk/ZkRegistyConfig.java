@@ -8,8 +8,7 @@ import org.catmint.exception.config.ConfigException;
 import org.catmint.config.ServiceRegistryConfig;
 import org.catmint.config.model.CatmintConnectConfig;
 import org.catmint.config.model.ZookeeperConfigEnum;
-import org.catmint.exception.config.ConfigExceptionEm;
-import org.catmint.exception.config.ConfigExceptionMessage;
+import org.catmint.exception.ExceptionEnum;
 
 /**
  * <p>Title:node-config节点配置信息</p>
@@ -29,11 +28,11 @@ public class ZkRegistyConfig implements ServiceRegistryConfig {
                 curatorFramework.create().creatingParentContainersIfNeeded()
                         .withMode( CreateMode.PERSISTENT )
                         .withACL( ZooDefs.Ids.OPEN_ACL_UNSAFE )
-                        .forPath( "/cluster" );
+                        .forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() );
             }
             log.info( "zookeeper 初始化成功" );
         } catch (Exception e) {
-            throw new ConfigException( new ConfigExceptionMessage( ConfigExceptionEm.ZK_INIT_ERROR.getMessage() ) );
+            throw new ConfigException( ExceptionEnum.ZK_INIT_ERROR.getMessage() );
         }
     }
 }
