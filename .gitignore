@@ -33,8 +33,6 @@ HELP.md
 
 ### VS Code ###
 .vscode/
-catmint-config/src/main/resources/META-INF/spring.factories
 
 catmint-io/src/test/resources/application.yml
 
-catmint-io/src/test/resources/application.yml

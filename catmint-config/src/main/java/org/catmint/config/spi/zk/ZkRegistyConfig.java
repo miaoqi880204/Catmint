@@ -21,18 +21,22 @@ import org.catmint.exception.ExceptionEnum;
 public class ZkRegistyConfig implements ServiceRegistryConfig {
 
     @Override
-    public void register(CatmintConnectConfig catmintConnectConfig) {
+    public boolean register(CatmintConnectConfig catmintConnectConfig) {
         CuratorFramework curatorFramework = ZkClientFactory.getCuratorFrameworkFactory();
-        try {
-            if (curatorFramework.checkExists().forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() ) == null) {
-                curatorFramework.create().creatingParentContainersIfNeeded()
-                        .withMode( CreateMode.PERSISTENT )
-                        .withACL( ZooDefs.Ids.OPEN_ACL_UNSAFE )
-                        .forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() );
+        if (curatorFramework != null) {
+            try {
+                if (curatorFramework.checkExists().forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() ) == null) {
+                    curatorFramework.create().creatingParentContainersIfNeeded()
+                            .withMode( CreateMode.PERSISTENT )
+                            .withACL( ZooDefs.Ids.OPEN_ACL_UNSAFE )
+                            .forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() );
+                }
+                log.info( "zookeeper 初始化成功" );
+                return true;
+            } catch (Exception e) {
+                throw new ConfigException( ExceptionEnum.ZK_INIT_ERROR.getMessage() );
             }
-            log.info( "zookeeper 初始化成功" );
-        } catch (Exception e) {
-            throw new ConfigException( ExceptionEnum.ZK_INIT_ERROR.getMessage() );
         }
+        return false;
     }
 }

@@ -30,7 +30,7 @@ public class InitConfigTest {
     }
 
     @Test
-    public void testZKNodeInit(){
+    public void initRegisterTest(){
         initConfig.initRegister( catmintConnectConfig );
     }
 }

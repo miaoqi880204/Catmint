@@ -19,5 +19,5 @@ public interface ServiceRegistryConfig {
     * @throws 
     * @date 2019-12-21 23:52 
     */
-    void register(CatmintConnectConfig catmintConnectConfig);
+    boolean register(CatmintConnectConfig catmintConnectConfig);
 }

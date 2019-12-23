@@ -23,8 +23,10 @@ public class InitConfig {
     public void initRegister(CatmintConnectConfig catmintConnectConfig) {
         List<ServiceRegistryConfig> serviceRegistries = SpringFactoriesLoader.loadFactories( ServiceRegistryConfig.class, null );
         if (null != serviceRegistries && !serviceRegistries.isEmpty()) {
-            //只需要第一个实现被加载执行即可
-            serviceRegistries.stream().findFirst().get().register( catmintConnectConfig );
+            for(ServiceRegistryConfig registryConfig : serviceRegistries){
+                //一旦有满足条件的实现器被加载，那么拒绝后面的实现器加载行为
+                if(registryConfig.register( catmintConnectConfig )) break;
+            }
         } else {
             //单机模式
             log.warn( ExceptionEnum.STAND_ALONE.getMessage() );

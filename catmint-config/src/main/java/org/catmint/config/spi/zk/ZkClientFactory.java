@@ -19,28 +19,33 @@ public class ZkClientFactory {
     private static CuratorFramework curatorFramework = null;
 
     /**
-    * <p>Title:单例获取</p>
-    * <p>Description:</p>
-    * @author QIQI
-    * @params []
-    * @return org.apache.curator.framework.CuratorFramework
-    * @throws 
-    * @date 2019-12-22 20:17 
-    */
+     * <p>Title:单例获取</p>
+     * <p>Description:</p>
+     *
+     * @return org.apache.curator.framework.CuratorFramework
+     * @throws
+     * @author QIQI
+     * @params []
+     * @date 2019-12-22 20:17
+     */
     public static CuratorFramework getCuratorFrameworkFactory() {
-        if (null != curatorFramework || StringUtils.isBlank( ZkParameterInit.ZK_ADDRESS )) {
+        //ZK配置不为空
+        if (StringUtils.isNoneBlank( ZkParameterInit.ZK_ADDRESS )) {
+            if (curatorFramework == null) {
+                //创建重试策略
+                RetryPolicy retryPolicy = new ExponentialBackoffRetry( ConstantConfig.ZOOKEEPER_BASE_SLEEP_TIMEMS, ConstantConfig.ZOOKEEPER_MAX_RETRIES );
+                CuratorFramework curatorFramework = CuratorFrameworkFactory.builder()
+                        .connectString( ZkParameterInit.ZK_ADDRESS )
+                        .sessionTimeoutMs( ConstantConfig.ZOOKEEPER_SESSION_TIMEOUT )
+                        .connectionTimeoutMs( ConstantConfig.ZOOKEEPER_CONNECT_TIMEOUT )
+                        .retryPolicy( retryPolicy )
+                        .namespace( ZookeeperConfigEnum.ZK_NAMESPACE.getVal() )
+                        .build();
+                curatorFramework.start();
+                return curatorFramework;
+            }
             return curatorFramework;
         }
-        //创建重试策略
-        RetryPolicy retryPolicy = new ExponentialBackoffRetry( ConstantConfig.ZOOKEEPER_BASE_SLEEP_TIMEMS, ConstantConfig.ZOOKEEPER_MAX_RETRIES );
-        CuratorFramework curatorFramework = CuratorFrameworkFactory.builder()
-                .connectString( ZkParameterInit.ZK_ADDRESS )
-                .sessionTimeoutMs( ConstantConfig.ZOOKEEPER_SESSION_TIMEOUT )
-                .connectionTimeoutMs( ConstantConfig.ZOOKEEPER_CONNECT_TIMEOUT )
-                .retryPolicy( retryPolicy )
-                .namespace( ZookeeperConfigEnum.ZK_NAMESPACE.getVal() )
-                .build();
-        curatorFramework.start();
-        return curatorFramework;
+        return null;
     }
 }
