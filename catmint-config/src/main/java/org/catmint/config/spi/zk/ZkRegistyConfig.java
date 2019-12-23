@@ -2,11 +2,9 @@ package org.catmint.config.spi.zk;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.ZooDefs;
+import org.catmint.common.utilities.ZkClientUtils;
 import org.catmint.exception.config.ConfigException;
 import org.catmint.config.ServiceRegistryConfig;
-import org.catmint.config.model.CatmintConnectConfig;
 import org.catmint.config.model.ZookeeperConfigEnum;
 import org.catmint.exception.ExceptionEnum;
 
@@ -21,15 +19,12 @@ import org.catmint.exception.ExceptionEnum;
 public class ZkRegistyConfig implements ServiceRegistryConfig {
 
     @Override
-    public boolean register(CatmintConnectConfig catmintConnectConfig) {
+    public boolean register() {
         CuratorFramework curatorFramework = ZkClientFactory.getCuratorFrameworkFactory();
         if (curatorFramework != null) {
             try {
                 if (curatorFramework.checkExists().forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() ) == null) {
-                    curatorFramework.create().creatingParentContainersIfNeeded()
-                            .withMode( CreateMode.PERSISTENT )
-                            .withACL( ZooDefs.Ids.OPEN_ACL_UNSAFE )
-                            .forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() );
+                    ZkClientUtils.create( curatorFramework,ZookeeperConfigEnum.ZK_NODE_INFO.getVal(),null );
                 }
                 log.info( "zookeeper 初始化成功" );
                 return true;

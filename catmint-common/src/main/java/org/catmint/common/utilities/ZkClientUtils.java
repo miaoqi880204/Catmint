@@ -1,4 +1,4 @@
-package org.catmint.common;
+package org.catmint.common.utilities;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.BackgroundCallback;
@@ -6,6 +6,7 @@ import org.apache.curator.framework.api.CuratorListener;
 import org.apache.curator.framework.api.transaction.CuratorTransactionFinal;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooDefs;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * @author QIQI
  * @date
  */
-public class ZkCommon {
+public class ZkClientUtils {
 
     /**
      * <p>Title:创建ZK节点</p>
@@ -29,7 +30,7 @@ public class ZkCommon {
      * @date 2019-12-22 11:28
      */
     public static void create(CuratorFramework client, String path, byte[] payload) throws Exception {
-        client.create().forPath( path, payload );
+        client.create().withMode( CreateMode.PERSISTENT ).withACL( ZooDefs.Ids.CREATOR_ALL_ACL ).forPath( path, payload );
     }
 
     /**
@@ -43,7 +44,7 @@ public class ZkCommon {
      * @date 2019-12-22 11:29
      */
     public static void createEphemeral(CuratorFramework client, String path, byte[] payload) throws Exception {
-        client.create().withMode( CreateMode.EPHEMERAL ).forPath( path, payload );
+        client.create().withMode( CreateMode.EPHEMERAL ).withACL( ZooDefs.Ids.CREATOR_ALL_ACL ).forPath( path, payload );
     }
 
     /**
@@ -57,7 +58,7 @@ public class ZkCommon {
      * @date 2019-12-22 11:30
      */
     public static String createEphemeralSequential(CuratorFramework client, String path, byte[] payload) throws Exception {
-        return client.create().withProtection().withMode( CreateMode.EPHEMERAL_SEQUENTIAL ).forPath( path, payload );
+        return client.create().withProtection().withMode( CreateMode.EPHEMERAL_SEQUENTIAL ).withACL( ZooDefs.Ids.CREATOR_ALL_ACL ).forPath( path, payload );
     }
 
     /**

@@ -22,7 +22,7 @@ import org.catmint.exception.config.ConfigException;
 public class LocalRegistyConfig implements ServiceRegistryConfig {
 
     @Override
-    public boolean register(CatmintConnectConfig catmintConnectConfig) {
+    public boolean register() {
         //单机模式
         log.info( ExceptionEnum.STAND_ALONE.getMessage() );
         return true;

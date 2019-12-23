@@ -1,10 +1,11 @@
 package org.catmint.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.catmint.config.model.CatmintConnectConfig;
+import org.apache.zookeeper.ZooDefs;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.SpringFactoriesLoader;
-import org.springframework.stereotype.Service;
-
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -16,15 +17,24 @@ import java.util.List;
  * @date
  */
 @Slf4j
-@Service
+@Configuration
 public class InitConfig {
+    @Value( "${org.catmint.zk.address:}" )
+    private String zk_address;
 
-    public void initRegister(CatmintConnectConfig catmintConnectConfig) {
+    @PostConstruct
+    public void zkParameterInit(){
+        ZooDefs.Ids.AUTH_IDS.setId( ConstantConfig.ID_AUTH );
+        ConstantConfig.ZK_ADDRESS = zk_address;
+    }
+
+    @PostConstruct
+    public void initRegister() {
         List<ServiceRegistryConfig> serviceRegistries = SpringFactoriesLoader.loadFactories( ServiceRegistryConfig.class, null );
         if (null != serviceRegistries && !serviceRegistries.isEmpty()) {
             for(ServiceRegistryConfig registryConfig : serviceRegistries){
                 //一旦有满足条件的实现器被加载，那么拒绝后面的实现器加载行为
-                if(registryConfig.register( catmintConnectConfig )) break;
+                if(registryConfig.register()) break;
             }
         }
     }

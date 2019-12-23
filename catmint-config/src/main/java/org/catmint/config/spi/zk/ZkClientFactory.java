@@ -30,12 +30,12 @@ public class ZkClientFactory {
      */
     public static CuratorFramework getCuratorFrameworkFactory() {
         //ZK配置不为空
-        if (StringUtils.isNoneBlank( ZkParameterInit.ZK_ADDRESS )) {
+        if (StringUtils.isNoneBlank( ConstantConfig.ZK_ADDRESS )) {
             if (curatorFramework == null) {
                 //创建重试策略
                 RetryPolicy retryPolicy = new ExponentialBackoffRetry( ConstantConfig.ZOOKEEPER_BASE_SLEEP_TIMEMS, ConstantConfig.ZOOKEEPER_MAX_RETRIES );
                 CuratorFramework curatorFramework = CuratorFrameworkFactory.builder()
-                        .connectString( ZkParameterInit.ZK_ADDRESS )
+                        .connectString( ConstantConfig.ZK_ADDRESS )
                         .sessionTimeoutMs( ConstantConfig.ZOOKEEPER_SESSION_TIMEOUT )
                         .connectionTimeoutMs( ConstantConfig.ZOOKEEPER_CONNECT_TIMEOUT )
                         .retryPolicy( retryPolicy )
