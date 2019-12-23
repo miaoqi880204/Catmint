@@ -1,5 +1,6 @@
 package org.catmint.io.utilities;
 
+import org.catmint.common.utilities.MessageFormatUtils;
 import org.junit.Assert;
 import org.junit.Test;
 

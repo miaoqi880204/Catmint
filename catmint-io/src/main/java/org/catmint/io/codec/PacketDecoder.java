@@ -7,7 +7,7 @@ import org.catmint.exception.io.PacketException;
 import org.catmint.io.protocol.mysql.MySQLPacket;
 import org.catmint.io.protocol.mysql.WrapperPacket;
 import org.catmint.io.utilities.ByteBufUtils;
-import org.catmint.io.utilities.MessageFormatUtils;
+import org.catmint.common.utilities.MessageFormatUtils;
 
 import java.util.List;
 
