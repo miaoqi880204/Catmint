@@ -17,6 +17,4 @@ public class ConstantConfig {
     //会话超时时间
     public static final int ZOOKEEPER_SESSION_TIMEOUT = 60000;
     public static String ZK_ADDRESS = null;
-
-    public static final String ID_AUTH = "Catmint Hello World!";
 }

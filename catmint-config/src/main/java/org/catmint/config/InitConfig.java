@@ -24,7 +24,6 @@ public class InitConfig {
 
     @PostConstruct
     public void zkParameterInit(){
-        ZooDefs.Ids.AUTH_IDS.setId( ConstantConfig.ID_AUTH );
         ConstantConfig.ZK_ADDRESS = zk_address;
     }
 

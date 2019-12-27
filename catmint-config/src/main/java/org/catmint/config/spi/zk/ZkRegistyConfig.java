@@ -1,7 +1,9 @@
 package org.catmint.config.spi.zk;
 
+import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
+import org.catmint.common.utilities.IpUtils;
 import org.catmint.common.utilities.ZkClientFactory;
 import org.catmint.common.utilities.ZkClientUtils;
 import org.catmint.config.ZookeeperConfigEnum;
@@ -24,12 +26,15 @@ public class ZkRegistyConfig implements ServiceRegistryConfig {
         CuratorFramework curatorFramework = ZkClientFactory.getCuratorFrameworkFactory();
         if (curatorFramework != null) {
             try {
-                if (curatorFramework.checkExists().forPath( ZookeeperConfigEnum.ZK_NODE_INFO.getVal() ) == null) {
-                    ZkClientUtils.create( curatorFramework,ZookeeperConfigEnum.ZK_NODE_INFO.getVal(),null );
+                String path = Joiner.on("/").
+                        join( ZookeeperConfigEnum.ZK_NODE_INFO.getVal(),IpUtils.getLocalIp() );
+                if (curatorFramework.checkExists().forPath( path ) == null) {
+                    ZkClientUtils.create( curatorFramework, path, IpUtils.getLocalIp().getBytes() );
                 }
-                log.info( "zookeeper 初始化成功" );
+                log.info( "zookeeper 初始化成功 >>>>>>>> NodeIp is {}",IpUtils.getLocalIp() );
                 return true;
             } catch (Exception e) {
+                log.error( "Zookeeper register error ",e );
                 throw new ConfigException( ExceptionEnum.ZK_INIT_ERROR.getMessage() );
             }
         }
