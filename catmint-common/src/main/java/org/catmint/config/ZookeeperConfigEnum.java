@@ -1,4 +1,4 @@
-package org.catmint.config.model;
+package org.catmint.config;
 
 
 /**

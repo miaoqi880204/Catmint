@@ -1,4 +1,4 @@
-package org.catmint.config.spi.zk;
+package org.catmint.common.utilities;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.RetryPolicy;
@@ -6,7 +6,7 @@ import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.catmint.config.ConstantConfig;
-import org.catmint.config.model.ZookeeperConfigEnum;
+import org.catmint.config.ZookeeperConfigEnum;
 
 /**
  * <p>Title:ZK 初始化执行工具</p>

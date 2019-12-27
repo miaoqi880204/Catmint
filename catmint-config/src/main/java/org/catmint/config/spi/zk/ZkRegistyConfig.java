@@ -2,10 +2,11 @@ package org.catmint.config.spi.zk;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
+import org.catmint.common.utilities.ZkClientFactory;
 import org.catmint.common.utilities.ZkClientUtils;
+import org.catmint.config.ZookeeperConfigEnum;
 import org.catmint.exception.config.ConfigException;
 import org.catmint.config.ServiceRegistryConfig;
-import org.catmint.config.model.ZookeeperConfigEnum;
 import org.catmint.exception.ExceptionEnum;
 
 /**
