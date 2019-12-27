@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * <p>Title:</p>
+ * <p>Title:Bean单例工厂</p>
  * <p>Description:</p>
  *
  * @author QIQI
