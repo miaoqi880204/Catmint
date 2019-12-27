@@ -25,6 +25,7 @@
         <module>catmint-monitor</module>
         <module>catmint-config</module>
         <module>catmint-common</module>
+        <module>catmint-client</module>
     </modules>
 
     <dependencyManagement>

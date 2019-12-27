@@ -3,11 +3,17 @@ package org.catmint.common.utilities;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.api.BackgroundCallback;
 import org.apache.curator.framework.api.CuratorListener;
-import org.apache.curator.framework.api.transaction.CuratorTransactionFinal;
+import org.apache.curator.framework.api.transaction.CuratorOp;
+import org.apache.curator.framework.api.transaction.CuratorTransactionResult;
+import org.apache.curator.framework.recipes.cache.NodeCache;
+import org.apache.curator.framework.recipes.cache.NodeCacheListener;
+import org.apache.curator.framework.recipes.cache.PathChildrenCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -172,21 +178,38 @@ public class ZkClientUtils {
      * @params [client]
      * @date 2019-12-22 20:46
      */
-    public static CuratorTransactionFinal startTransaction(CuratorFramework client, String path, byte[] payload) throws Exception {
-        return client.inTransaction().create().forPath( path, payload ).and();
+    public static Collection<CuratorTransactionResult> startTransaction(CuratorFramework client, CuratorOp curatorOp) throws Exception {
+        return client.transaction().forOperations( curatorOp );
     }
 
     /**
-     * <p>Title:提交事务</p>
+     * <p>Title:添加缓存监听器，但是这个监听器只对传入节点的子节点的增删改查生效</p>
      * <p>Description:</p>
      *
      * @return void
      * @throws
      * @author QIQI
-     * @params [transaction]
-     * @date 2019-12-22 20:47
+     * @params [client, path, bool - 是否接收节点数据内容，false不接收, pathChildrenCacheListener]
+     * @date 2019-12-27 14:17
      */
-    public static void commitTransaction(CuratorTransactionFinal transaction) throws Exception {
-        transaction.commit();
+    public void addPathChildrenCacheListener(CuratorFramework client, String path, boolean bool, PathChildrenCacheListener pathChildrenCacheListener) throws Exception {
+        PathChildrenCache cache = new PathChildrenCache( client, path, bool );
+        cache.start();
+        cache.getListenable().addListener(pathChildrenCacheListener);
+    }
+
+    /**
+    * <p>Title:添加节点缓存监听器，只对当前传入节点的创建和更新生效，删除不会被触发</p>
+    * <p>Description:</p>
+    * @author QIQI
+    * @params [client, path, bool - 是否接收节点数据内容，false不接收, nodeCacheListener]
+    * @return void
+    * @throws 
+    * @date 2019-12-27 14:20 
+    */
+    public void addNodeCacheListener(CuratorFramework client, String path, boolean bol, NodeCacheListener nodeCacheListener) throws Exception {
+        NodeCache nodeCache = new NodeCache( client,path,bol );
+        nodeCache.start();
+        nodeCache.getListenable().addListener( nodeCacheListener );
     }
 }
