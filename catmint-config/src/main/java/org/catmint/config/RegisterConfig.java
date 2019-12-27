@@ -1,11 +1,6 @@
 package org.catmint.config;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.zookeeper.ZooDefs;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.SpringFactoriesLoader;
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -16,18 +11,8 @@ import java.util.List;
  * @author QIQI
  * @date
  */
-@Slf4j
-@Configuration
-public class InitConfig {
-    @Value( "${org.catmint.zk.address:}" )
-    private String zk_address;
+public class RegisterConfig {
 
-    @PostConstruct
-    public void zkParameterInit(){
-        ConstantConfig.ZK_ADDRESS = zk_address;
-    }
-
-    @PostConstruct
     public void initRegister() {
         List<ServiceRegistryConfig> serviceRegistries = SpringFactoriesLoader.loadFactories( ServiceRegistryConfig.class, null );
         if (null != serviceRegistries && !serviceRegistries.isEmpty()) {

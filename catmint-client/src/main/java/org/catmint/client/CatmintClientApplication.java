@@ -1,5 +1,6 @@
 package org.catmint.client;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -11,4 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class CatmintClientApplication {
+    public static void main(String[] args) {
+        SpringApplication application = new SpringApplication(CatmintClientApplication.class);
+        application.run(args);
+    }
 }

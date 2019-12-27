@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author Shuo Xiang
  */
 @SpringBootApplication
-@ComponentScan({"org.catmint.config"})
+@ComponentScan({"org.catmint.core"})
 public class CatmintServerTestApplication {
 
     public static void main(String[] args) {
