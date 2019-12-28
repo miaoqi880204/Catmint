@@ -1,7 +1,7 @@
 org:
   catmint:
     server:
-      port: 13306
+      port: 13066
     zk:
       address: peacock-vm:2181
 logging:

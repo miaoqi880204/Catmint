@@ -191,7 +191,7 @@ public class ZkClientUtils {
      * @params [client, path, bool - 是否接收节点数据内容，false不接收, pathChildrenCacheListener]
      * @date 2019-12-27 14:17
      */
-    public void addPathChildrenCacheListener(CuratorFramework client, String path, boolean bool, PathChildrenCacheListener pathChildrenCacheListener) throws Exception {
+    public static void addPathChildrenCacheListener(CuratorFramework client, String path, boolean bool, PathChildrenCacheListener pathChildrenCacheListener) throws Exception {
         PathChildrenCache cache = new PathChildrenCache( client, path, bool );
         cache.start();
         cache.getListenable().addListener(pathChildrenCacheListener);
@@ -206,7 +206,7 @@ public class ZkClientUtils {
     * @throws 
     * @date 2019-12-27 14:20 
     */
-    public void addNodeCacheListener(CuratorFramework client, String path, boolean bol, NodeCacheListener nodeCacheListener) throws Exception {
+    public static void addNodeCacheListener(CuratorFramework client, String path, boolean bol, NodeCacheListener nodeCacheListener) throws Exception {
         NodeCache nodeCache = new NodeCache( client,path,bol );
         nodeCache.start();
         nodeCache.getListenable().addListener( nodeCacheListener );
