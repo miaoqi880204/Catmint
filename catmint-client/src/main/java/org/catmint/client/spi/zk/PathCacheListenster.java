@@ -2,6 +2,7 @@ package org.catmint.client.spi.zk;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
+import org.catmint.BeanFactory.BeanFactory;
 import org.catmint.client.spi.RegisterWatcher;
 import org.catmint.common.utilities.ZkClientFactory;
 import org.catmint.common.utilities.ZkClientUtils;
@@ -23,19 +24,8 @@ public class PathCacheListenster implements RegisterWatcher {
             ZkClientUtils.addPathChildrenCacheListener( curatorFramework,
                     ZookeeperConfigEnum.ZK_NODE_INFO.getVal(), true,
                     (client, event) -> {
-                        switch (event.getType()) {
-                            case CHILD_ADDED:
-                                System.out.println("CHILD_ADDED :" + event.getData().getPath());
-                                break;
-                            case CHILD_UPDATED:
-                                System.out.println("CHILD_UPDATED :" + event.getData().getPath());
-                                break;
-                            case CHILD_REMOVED:
-                                System.out.println("CHILD_REMOVED :" + event.getData().getPath());
-                                break;
-                            default:
-                                break;
-                        }
+                        ClusterObservable clusterObservable = BeanFactory.getBeanSingleton( ClusterObservable.class );
+                        clusterObservable.getZkCusterList();
                     }
             );
             log.info( "PathCacheListenster.addPathCacheListenster scuuess" );
