@@ -23,7 +23,6 @@ public class ListenClusterHandler extends InitHandler {
         while(iterator.hasNext()){
             if(iterator.next().registerWatcher()) break;
         }
-        //交由下一个行为
         if(null !=  this.initHandler) this.initHandler.resolve( cluster );
     }
 
