@@ -20,18 +20,20 @@ public class PathCacheListenster implements RegisterWatcher {
     @Override
     public boolean registerWatcher(){
         CuratorFramework curatorFramework = ZkClientFactory.getCuratorFrameworkFactory();
-        try{
-            ZkClientUtils.addPathChildrenCacheListener( curatorFramework,
-                    ZookeeperConfigEnum.ZK_NODE_INFO.getVal(), true,
-                    (client, event) -> {
-                        ClusterObservable clusterObservable = BeanFactory.getBeanSingleton( ClusterObservable.class );
-                        clusterObservable.getZkCusterList();
-                    }
-            );
-            log.info( "PathCacheListenster.addPathCacheListenster scuuess" );
-            return true;
-        }catch(Exception e){
-            log.error( "PathCacheListenster.addPathCacheListenster error ",e );
+        if (curatorFramework != null) {
+            try{
+                ZkClientUtils.addPathChildrenCacheListener( curatorFramework,
+                        ZookeeperConfigEnum.ZK_NODE_INFO.getVal(), true,
+                        (client, event) -> {
+                            ClusterObservable clusterObservable = BeanFactory.getBeanSingleton( ClusterObservable.class );
+                            clusterObservable.getZkCusterList();
+                        }
+                );
+                log.info( "PathCacheListenster.addPathCacheListenster scuuess" );
+                return true;
+            }catch(Exception e){
+                log.error( "PathCacheListenster.addPathCacheListenster error ",e );
+            }
         }
         return false;
     }
