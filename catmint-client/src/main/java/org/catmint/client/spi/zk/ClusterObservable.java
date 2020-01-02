@@ -1,6 +1,6 @@
 package org.catmint.client.spi.zk;
 
-import org.catmint.BeanFactory.BeanFactory;
+import org.catmint.beanfactory.BeanFactory;
 import java.util.Observable;
 
 /**

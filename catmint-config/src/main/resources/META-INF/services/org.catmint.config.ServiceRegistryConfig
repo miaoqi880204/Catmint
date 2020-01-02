@@ -1,0 +1,2 @@
+org.catmint.config.spi.zk.ZkRegistyConfig
+org.catmint.config.spi.local.LocalRegistyConfig

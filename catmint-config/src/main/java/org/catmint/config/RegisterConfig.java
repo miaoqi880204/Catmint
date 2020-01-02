@@ -1,7 +1,7 @@
 package org.catmint.config;
 
-import org.springframework.core.io.support.SpringFactoriesLoader;
-import java.util.List;
+import java.util.Iterator;
+import java.util.ServiceLoader;
 
 /**
  * <p>Title:利用SPI机制</p>
@@ -14,11 +14,11 @@ import java.util.List;
 public class RegisterConfig {
 
     public void initRegister() {
-        List<ServiceRegistryConfig> serviceRegistries = SpringFactoriesLoader.loadFactories( ServiceRegistryConfig.class, null );
-        if (null != serviceRegistries && !serviceRegistries.isEmpty()) {
-            for(ServiceRegistryConfig registryConfig : serviceRegistries){
-                //一旦有满足条件的实现器被加载，那么拒绝后面的实现器加载行为
-                if(registryConfig.register()) break;
+        ServiceLoader<ServiceRegistryConfig> serviceRegistries = ServiceLoader.load( ServiceRegistryConfig.class );
+        if (null != serviceRegistries) {
+            Iterator<ServiceRegistryConfig> serviceRegistryConfigIterator = serviceRegistries.iterator();
+            while (serviceRegistryConfigIterator.hasNext()) {
+                if (serviceRegistryConfigIterator.next().register()) break;
             }
         }
     }

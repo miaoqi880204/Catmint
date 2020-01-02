@@ -91,8 +91,7 @@ public class ZkClientUtils {
      * @date 2019-12-22 11:33
      */
     public static void setDataAsync(CuratorFramework curatorFramework, String path, byte[] payload) throws Exception {
-        CuratorListener listener = (client, event) -> {
-        };
+        CuratorListener listener = (client, event) -> { };
         curatorFramework.getCuratorListenable().addListener( listener );
         curatorFramework.setData().inBackground().forPath( path, payload );
     }

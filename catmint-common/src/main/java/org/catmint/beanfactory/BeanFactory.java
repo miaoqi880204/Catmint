@@ -1,4 +1,4 @@
-package org.catmint.BeanFactory;
+package org.catmint.beanfactory;
 
 import lombok.extern.slf4j.Slf4j;
 

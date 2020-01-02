@@ -2,7 +2,7 @@ package org.catmint.client.spi.zk;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
-import org.catmint.BeanFactory.BeanFactory;
+import org.catmint.beanfactory.BeanFactory;
 import org.catmint.client.spi.RegisterWatcher;
 import org.catmint.common.utilities.ZkClientFactory;
 import org.catmint.common.utilities.ZkClientUtils;

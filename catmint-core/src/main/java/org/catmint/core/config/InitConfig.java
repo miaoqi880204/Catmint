@@ -1,7 +1,7 @@
 package org.catmint.core.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.catmint.BeanFactory.BeanFactory;
+import org.catmint.beanfactory.BeanFactory;
 import org.catmint.config.ConstantConfig;
 import org.catmint.config.RegisterConfig;
 import org.springframework.beans.factory.annotation.Value;

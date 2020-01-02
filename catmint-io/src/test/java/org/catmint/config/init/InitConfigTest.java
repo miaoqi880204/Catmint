@@ -1,11 +1,7 @@
 package org.catmint.config.init;
 
-import org.catmint.CatmintServerTestApplication;
 import org.catmint.config.model.CatmintConnectConfig;
 import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * <p>Title:</p>
@@ -14,8 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author QIQI
  * @date
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {CatmintServerTestApplication.class})
 public class InitConfigTest {
     private CatmintConnectConfig catmintConnectConfig;
 
