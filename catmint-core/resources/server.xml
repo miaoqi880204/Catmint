@@ -2,11 +2,11 @@
 <server  xmlns="catmint-server-xsd">
     <max-thread>30</max-thread>
     <max-result-conut>1000</max-result-conut>
-    <charset>utf-8</charset>
-    <bind-ip>0.0.0.0</bind-ip>
-    <max-string-literal-length>65536</max-string-literal-length>
     <processors>4</processors>
+    <max-string-literal-length>65536</max-string-literal-length>
+    <charset>utf-8</charset>
     <sequnce-create-type>2</sequnce-create-type>
+    <bind-ip>0.0.0.0</bind-ip>
 
     <!--
     <zookeeper-address></zookeeper-address>
