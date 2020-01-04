@@ -1,5 +1,6 @@
 package org.catmint.config.spi;
 
+import net.sf.cglib.beans.BeanCopier;
 import org.catmint.beanfactory.BeanFactory;
 import org.catmint.common.utilities.XmlUtils;
 import org.catmint.config.ConstantConfig;
@@ -44,7 +45,9 @@ public class ConfigCommon {
                     }
                 }
             }
-            //proxyConfig = new ProxyConfig( serverXML.getMaxThread(), serverXML.getMaxThread(), logicDBS, serverXML.getZookeeperAddress() );
+            proxyConfig = new ProxyConfig( logicDBS );
+            BeanCopier beanCopier = BeanCopier.create( ServerXML.class,ProxyConfig.class,false );
+            beanCopier.copy( serverXML,proxyConfig,null );
             BeanFactory.BeanInstantiation.put( ProxyConfig.class.getName(), proxyConfig );
         }
         return proxyConfig;
