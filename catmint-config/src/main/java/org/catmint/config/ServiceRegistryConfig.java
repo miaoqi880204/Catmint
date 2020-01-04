@@ -1,6 +1,8 @@
 package org.catmint.config;
 
 
+import org.catmint.config.model.ProxyConfig;
+
 /**
  * <p>Title:服务注册接口</p>
  * <p>Description:</p>
@@ -18,5 +20,5 @@ public interface ServiceRegistryConfig {
     * @throws 
     * @date 2019-12-21 23:52 
     */
-    boolean register();
+    ProxyConfig register();
 }

@@ -3,8 +3,7 @@ package org.catmint.core.config;
 import lombok.extern.slf4j.Slf4j;
 import org.catmint.beanfactory.BeanFactory;
 import org.catmint.config.RegisterConfig;
-
-import javax.annotation.PostConstruct;
+import org.catmint.config.model.ProxyConfig;
 
 /**
  * <p>Title:</p>
@@ -16,9 +15,8 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class InitConfig {
 
-    @PostConstruct
-    public void configRegisterCluster(){
+    public ProxyConfig configRegister(){
         RegisterConfig registerConfig = BeanFactory.getBeanSingleton( RegisterConfig.class );
-        registerConfig.initRegister();
+        return registerConfig.initRegister();
     }
 }

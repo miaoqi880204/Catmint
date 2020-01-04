@@ -20,7 +20,7 @@ public class LogicDB implements Serializable {
     @Getter
     private DatabaseConect databaseConect;
 
-    public LogicDB(@NonNull  String logicName,@NonNull DatabaseConect databaseConect) {
+    public LogicDB(@NonNull String logicName, @NonNull DatabaseConect databaseConect) {
         this.logicName = logicName;
         this.databaseConect = databaseConect;
     }

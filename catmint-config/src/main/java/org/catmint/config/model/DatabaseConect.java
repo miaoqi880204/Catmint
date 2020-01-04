@@ -67,15 +67,15 @@ public class DatabaseConect implements Serializable {
     * @throws 
     * @date 2020-01-04 18:19 
     */
-    static class Ip{
+   public static class Ip{
         //主节点信息
         @Getter
         private String masterIp;
         //从节点信息
         @Getter
-        private LinkedList<String> slaveIps;
+        private LinkedList<RouteXML.Slaves> slaveIps;
 
-        public Ip(@NonNull String masterIp, LinkedList<String> slaveIps) {
+        public Ip(@NonNull String masterIp, LinkedList<RouteXML.Slaves> slaveIps) {
             this.masterIp = masterIp;
             this.slaveIps = slaveIps;
         }

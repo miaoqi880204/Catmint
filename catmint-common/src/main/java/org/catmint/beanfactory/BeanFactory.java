@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class BeanFactory {
-    private static ConcurrentHashMap<String, Object> BeanInstantiation = new ConcurrentHashMap();
+    public static final ConcurrentHashMap<String, Object> BeanInstantiation = new ConcurrentHashMap();
 
     /**
     * <p>Title:所有Bean单例工厂</p>

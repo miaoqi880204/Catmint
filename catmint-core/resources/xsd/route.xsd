@@ -18,16 +18,23 @@
                                     <xs:attribute name="ip" type="xs:string" use="required" />
                                 </xs:complexType>
                             </xs:element>
-                            <xs:element name="slave" maxOccurs="unbounded" minOccurs="0">
+                            <xs:element name="slaves" minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>从库ip</xs:documentation>
                                 </xs:annotation>
                                 <xs:complexType>
-                                    <xs:attribute name="ip" type="xs:string" use="required" />
+                                    <xs:sequence>
+                                        <xs:element name="slave" maxOccurs="unbounded" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:attribute name="ip" type="xs:string" use="required" />
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>
                         <xs:attribute name="name" type="xs:string" use="required" />
+                        <xs:attribute name="dbname" type="xs:string" use="required" />
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>

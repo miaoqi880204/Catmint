@@ -2,6 +2,8 @@ package org.catmint.config.spi.local;
 
 import lombok.extern.slf4j.Slf4j;
 import org.catmint.config.ServiceRegistryConfig;
+import org.catmint.config.model.ProxyConfig;
+import org.catmint.config.spi.ConfigCommon;
 import org.catmint.exception.ExceptionEnum;
 
 /**
@@ -15,9 +17,9 @@ import org.catmint.exception.ExceptionEnum;
 public class LocalRegistyConfig implements ServiceRegistryConfig {
 
     @Override
-    public boolean register() {
+    public ProxyConfig register() {
         //单机模式
         log.info( ExceptionEnum.STAND_ALONE.getMessage() );
-        return true;
+        return ConfigCommon.getLocalConf();
     }
 }

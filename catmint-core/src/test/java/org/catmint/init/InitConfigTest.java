@@ -1,8 +1,9 @@
 package org.catmint.init;
 
 import org.catmint.beanfactory.BeanFactory;
-import org.catmint.config.model.ProxyConfig;
+import org.catmint.config.model.*;
 import org.catmint.core.config.InitConfig;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -13,12 +14,11 @@ import org.junit.Test;
  * @date
  */
 public class InitConfigTest {
-    private ProxyConfig catmintConnectConfig;
 
     @Test
-    public void testInitConfig(){
-        catmintConnectConfig = new ProxyConfig( "admin","123",false,3306,"127.9.9.9",false,"127.0.0.1","999.99.99.99",8799 );
+    public void testInitConfig() {
         InitConfig initConfig = BeanFactory.getBeanSingleton( InitConfig.class );
-        initConfig.configRegisterCluster();
+        ProxyConfig proxyConfig = initConfig.configRegister();
+        Assert.assertNotNull( proxyConfig );
     }
 }
