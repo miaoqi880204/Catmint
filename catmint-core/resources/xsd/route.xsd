@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="catmint-route-xsd" targetNamespace="catmint-route-xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="route">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="logic-name" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>逻辑库名称</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="master">
+                                <xs:annotation>
+                                    <xs:documentation>主库ip</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="ip" type="xs:string" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="slave" maxOccurs="unbounded" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>从库ip</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:attribute name="ip" type="xs:string" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+
+
+        <!--
+        <xs:element name="primary" type="xs:string">
+        <xs:simpleType>
+            <xs:annotation>
+                <xs:documentation>数据库主键策略</xs:documentation>
+            </xs:annotation>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="custom">
+                    <xs:annotation>
+                        <xs:documentation>自定义</xs:documentation>
+                    </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="increase">
+                    <xs:annotation>
+                        <xs:documentation>数据库自增</xs:documentation>
+                    </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="globally-unique">
+                    <xs:annotation>
+                        <xs:documentation>分布式环境全局唯一</xs:documentation>
+                    </xs:annotation>
+                </xs:enumeration>
+            </xs:restriction>
+        </xs:simpleType>
+        </xs:element>
+        <xs:element name="database-table-isunified" type="xs:int">
+                                        <xs:simpleType>
+                                            <xs:annotation>
+                                                <xs:documentation>路由库、读写分离库表是否全局统一</xs:documentation>
+                                            </xs:annotation>
+                                            <xs:restriction base="xs:boolean">
+                                                <xs:enumeration value="true"/>
+                                                <xs:enumeration value="false"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:element>
+        -->

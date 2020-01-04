@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server  xmlns="catmint-server-xsd"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="catmint-server-xsd">
+    <max-thread>30</max-thread>
+    <max-result-conut>1000</max-result-conut>
+    <databases>
+        <logic-dbname>baozun-test</logic-dbname>
+        <user>wh_shard_test</user>
+        <password>Emxb6FmloXcYBPMANk2</password>
+        <dialect>mysql</dialect>
+    </databases>
+</server>

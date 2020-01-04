@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+        xmlns="catmint-server-xsd" targetNamespace="catmint-server-xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="server">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="max-thread" type="xs:int" default="30">
+                    <xs:annotation>
+                        <xs:documentation>最大线程数</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="max-result-conut" type="xs:int" default="500">
+                    <xs:annotation>
+                        <xs:documentation>最大返回结果集数量</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="databases" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="logic-dbname" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>数据库链接别名</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="user" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>数据库用户名</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="password" type="xs:string">
+                                <xs:annotation>
+                                    <xs:documentation>数据库密码</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="dialect" type="xs:string" default="mysql">
+                                <xs:simpleType>
+                                    <xs:annotation>
+                                        <xs:documentation>数据库驱动信息</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="mysql"/>
+                                        <xs:enumeration value="postgresql"/>
+                                        <xs:enumeration value="mariadb"/>
+                                        <xs:enumeration value="oracle"/>
+                                        <xs:enumeration value="sqlserver"/>
+                                        <xs:enumeration value="db2"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
