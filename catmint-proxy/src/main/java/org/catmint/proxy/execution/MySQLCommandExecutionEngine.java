@@ -19,6 +19,13 @@ import java.util.Collection;
  */
 public final class MySQLCommandExecutionEngine {
 
+    /**
+     * 执行SQL命令
+     *
+     * @param context
+     * @param message
+     * @throws SQLException
+     */
     public void executeCommand(final ChannelHandlerContext context, final ByteBuf message) throws SQLException {
         MySQLPacketPayload payload = new MySQLPacketPayload(message);
         MySQLCommandPacketType packetType = MySQLCommandPacketTypeLoader.getCommandPacketType(payload);

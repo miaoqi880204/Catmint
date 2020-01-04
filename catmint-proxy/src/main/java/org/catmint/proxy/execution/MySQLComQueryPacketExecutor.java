@@ -1,7 +1,7 @@
 package org.catmint.proxy.execution;
 
 import org.catmint.proxy.packet.DatabasePacket;
-import org.catmint.proxy.packet.MySQLEofPacket;
+import org.catmint.proxy.packet.MySQLOKPacket;
 import org.catmint.proxy.packet.command.MySQLComQueryPacket;
 
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public final class MySQLComQueryPacketExecutor implements QueryCommandExecutor {
     @Override
     public Collection<DatabasePacket> execute() throws SQLException {
         // TODO
-        return Collections.singleton(new MySQLEofPacket(1));
+        return Collections.singleton(new MySQLOKPacket(1, 0, 0));
     }
 
     @Override
