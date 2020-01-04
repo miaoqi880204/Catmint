@@ -17,6 +17,7 @@ public class LogicDB implements Serializable {
     //逻辑库名字
     @Getter
     private String logicName;
+    //数据库详细链接信息
     @Getter
     private DatabaseConect databaseConect;
 
