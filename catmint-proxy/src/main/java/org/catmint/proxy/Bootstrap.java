@@ -17,7 +17,7 @@ public final class Bootstrap {
 
     public static void main(String[] args) {
         RegisterConfig registerConfig = BeanFactory.getBeanSingleton(RegisterConfig.class);
-        registerConfig.initRegister();
+        ProxyConfig proxyConfig = registerConfig.initRegister();
         CatmintServer.getInstance().start(13306);
     }
 }
