@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.catmint.proxy.execution.MySQLCommandExecutionEngine;
-import org.catmint.proxy.frontend.MySQLAuthenticator;
+import org.catmint.proxy.frontend.auth.MySQLAuthenticator;
 import org.catmint.proxy.packet.MySQLHandshakePacket;
 import org.catmint.proxy.packet.MySQLPacketPayload;
 import org.catmint.proxy.support.ConnectionIdGenerator;
