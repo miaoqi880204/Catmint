@@ -1,12 +1,9 @@
-package org.catmint.proxy.frontend;
+package org.catmint.proxy.frontend.auth;
 
 import com.google.common.base.Strings;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
-import org.catmint.beanfactory.BeanFactory;
-import org.catmint.config.RegisterConfig;
-import org.catmint.config.model.ProxyConfig;
 import org.catmint.proxy.packet.*;
 import org.catmint.proxy.utilities.DigestUtils;
 
@@ -14,7 +11,6 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -29,8 +25,7 @@ public final class MySQLAuthenticator {
 
     public boolean auth(final ChannelHandlerContext context,  final PacketPayload payload) {
         MySQLHandshakeResponse41Packet response41 = new MySQLHandshakeResponse41Packet((MySQLPacketPayload) payload);
-        if (!Strings.isNullOrEmpty(response41.getDatabase())) {
-            // TODO 验证 schema 是否存在
+        if (!Strings.isNullOrEmpty(response41.getDatabase()) && !AuthContext.getInstance().getSchemas().contains(response41.getDatabase())) {
             context.writeAndFlush(new MySQLErrPacket(response41.getSequenceId() + 1, MySQLServerErrorCode.ER_BAD_DB_ERROR, response41.getDatabase()));
             return true;
         }
@@ -48,14 +43,13 @@ public final class MySQLAuthenticator {
         if (!user.isPresent() || !isPasswordRight(user.get().getPassword(), response41.getAuthResponse())) {
             return Optional.of(MySQLServerErrorCode.ER_ACCESS_DENIED_ERROR);
         }
-        if (!isAuthorizedSchema(user.get().getAuthorizedSchemas(), response41.getDatabase())) {
+        if (!isAuthorizedSchema(user.get().getSchemas(), response41.getDatabase())) {
             return Optional.of(MySQLServerErrorCode.ER_DBACCESS_DENIED_ERROR);
         }
         return Optional.empty();
     }
 
     private boolean isPasswordRight(final String password, final byte[] authResponse) {
-        byte[] authCipherBytes = getAuthCipherBytes(password);
         return Strings.isNullOrEmpty(password) || Arrays.equals(getAuthCipherBytes(password), authResponse);
     }
 
@@ -64,16 +58,12 @@ public final class MySQLAuthenticator {
     }
 
     private Optional<ProxyUser> getUser(final String username) {
-        RegisterConfig registerConfig = BeanFactory.getBeanSingleton(RegisterConfig.class);
-        ProxyConfig proxyConfig = registerConfig.initRegister();
-        // TODO
-        return Optional.of(new ProxyUser("123456", Collections.emptyList()));
-//        for (Map.Entry<String, ProxyUser> entry : SHARDING_PROXY_CONTEXT.getAuthentication().getUsers().entrySet()) {
-//            if (entry.getKey().equals(username)) {
-//                return Optional.of(entry.getValue());
-//            }
-//        }
-//        return Optional.absent();
+        for (ProxyUser user : AuthContext.getInstance().getUsers()) {
+            if (user.getUsername().equals(username)) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
 
     private byte[] getAuthCipherBytes(final String password) {
