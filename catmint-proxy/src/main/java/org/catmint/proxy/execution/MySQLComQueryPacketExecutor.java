@@ -1,5 +1,6 @@
 package org.catmint.proxy.execution;
 
+import lombok.extern.slf4j.Slf4j;
 import org.catmint.proxy.packet.DatabasePacket;
 import org.catmint.proxy.packet.MySQLOKPacket;
 import org.catmint.proxy.packet.command.MySQLComQueryPacket;
@@ -13,9 +14,11 @@ import java.util.Collections;
  *
  * @author zhangliang
  */
+@Slf4j
 public final class MySQLComQueryPacketExecutor implements QueryCommandExecutor {
 
     public MySQLComQueryPacketExecutor(final MySQLComQueryPacket comQueryPacket) {
+        log.info("sql is {}", comQueryPacket.getSql());
     }
 
     @Override
