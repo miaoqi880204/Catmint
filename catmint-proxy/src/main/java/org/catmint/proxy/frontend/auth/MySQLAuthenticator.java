@@ -4,6 +4,8 @@ import com.google.common.base.Strings;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
+import org.catmint.core.engine.CatmintConfigEngine;
+import org.catmint.core.engine.ProxyUser;
 import org.catmint.proxy.packet.*;
 import org.catmint.proxy.utilities.DigestUtils;
 
@@ -25,7 +27,7 @@ public final class MySQLAuthenticator {
 
     public boolean auth(final ChannelHandlerContext context,  final PacketPayload payload) {
         MySQLHandshakeResponse41Packet response41 = new MySQLHandshakeResponse41Packet((MySQLPacketPayload) payload);
-        if (!Strings.isNullOrEmpty(response41.getDatabase()) && !AuthContext.getInstance().getSchemas().contains(response41.getDatabase())) {
+        if (!Strings.isNullOrEmpty(response41.getDatabase()) && !CatmintConfigEngine.getSchemaDatabaseNodeToString(response41.getUsername()).contains( response41.getDatabase() )) {
             context.writeAndFlush(new MySQLErrPacket(response41.getSequenceId() + 1, MySQLServerErrorCode.ER_BAD_DB_ERROR, response41.getDatabase()));
             return true;
         }
@@ -39,11 +41,11 @@ public final class MySQLAuthenticator {
     }
 
     private Optional<MySQLServerErrorCode> login(final MySQLHandshakeResponse41Packet response41) {
-        Optional<ProxyUser> user = getUser(response41.getUsername());
+        Optional<ProxyUser> user = Optional.ofNullable( CatmintConfigEngine.getServerConfUser( response41.getUsername() ) );
         if (!user.isPresent() || !isPasswordRight(user.get().getPassword(), response41.getAuthResponse())) {
             return Optional.of(MySQLServerErrorCode.ER_ACCESS_DENIED_ERROR);
         }
-        if (!isAuthorizedSchema(user.get().getSchemas(), response41.getDatabase())) {
+        if (!isAuthorizedSchema(user.get().getDatabase(), response41.getDatabase())) {
             return Optional.of(MySQLServerErrorCode.ER_DBACCESS_DENIED_ERROR);
         }
         return Optional.empty();
@@ -55,15 +57,6 @@ public final class MySQLAuthenticator {
 
     private boolean isAuthorizedSchema(final Collection<String> authorizedSchemas, final String schema) {
         return Strings.isNullOrEmpty(schema) || CollectionUtils.isEmpty(authorizedSchemas) || authorizedSchemas.contains(schema);
-    }
-
-    private Optional<ProxyUser> getUser(final String username) {
-        for (ProxyUser user : AuthContext.getInstance().getUsers()) {
-            if (user.getUsername().equals(username)) {
-                return Optional.of(user);
-            }
-        }
-        return Optional.empty();
     }
 
     private byte[] getAuthCipherBytes(final String password) {

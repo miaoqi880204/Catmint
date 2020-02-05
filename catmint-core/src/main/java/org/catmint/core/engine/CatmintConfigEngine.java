@@ -1,6 +1,7 @@
 package org.catmint.core.engine;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import org.apache.commons.lang3.StringUtils;
 import org.catmint.common.utilities.CatmintStringUtils;
 import org.catmint.config.SchemaDataNode;
@@ -20,9 +21,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date
  */
 public final class CatmintConfigEngine {
-    private static final Map<String, String> CONFIG_ENGINE = new ConcurrentHashMap<>();
+    private static final Map<String, Object> CONFIG_ENGINE = new ConcurrentHashMap<>();
     private static final String METHOD_SCHEMA = "getSchemaConfToString";
     private static final String METHOD_DATANODE = "getSchemaDatabaseNodeToString";
+    private static final String METHOD_USER = "getServerConf";
 
 
     /**
@@ -40,6 +42,31 @@ public final class CatmintConfigEngine {
     }
 
     /**
+     * <p>Title:获取基础配置信息</p>
+     * <p>Description:</p>
+     *
+     * @return T
+     * @throws
+     * @author QIQI
+     * @params []
+     * @date 05/02/2020 10:56
+     */
+    public static ProxyUser getServerConfUser(final String userName) {
+        ProxyUser proxyUser = (ProxyUser) CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_USER ) );
+        if (!Optional.ofNullable( proxyUser ).isPresent()) {
+            ServerXML serverXML = getBaseConf();
+            for(ServerXML.User user : serverXML.getUsers()){
+                if (user.getName().equals( userName )) {
+                    proxyUser = new ProxyUser( userName, user.getPassword(),
+                            new HashSet<>( Splitter.on( "," ).splitToList( getSchemaDatabaseNodeToString( userName ) ) ) );
+                }
+            }
+            CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName, METHOD_USER ),proxyUser );
+        }
+        return proxyUser;
+    }
+
+    /**
      * <p>Title:获取schema信息,字符串形式</p>
      * <p>Description:</p>
      *
@@ -51,7 +78,7 @@ public final class CatmintConfigEngine {
      */
     public static String getSchemaConfToString(final String userName) {
         StringBuilder stringBuilder = new StringBuilder();
-        String resultCatch = CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_SCHEMA ) );
+        String resultCatch = (String) CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_SCHEMA ) );
         if (StringUtils.isBlank( resultCatch )) {
             Optional.ofNullable( userName ).ifPresent( v -> {
                 ServerXML serverXML = getBaseConf();
@@ -106,7 +133,7 @@ public final class CatmintConfigEngine {
      */
     public static String getSchemaDatabaseNodeToString(final String userName) {
         StringBuilder stringBuilder = new StringBuilder();
-        String resultCatch = CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_DATANODE ) );
+        String resultCatch = (String) CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_DATANODE ) );
         if (StringUtils.isBlank( resultCatch )) {
             SchemaDataNode schemaDataNode = (SchemaDataNode) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA_DATANODE );
             List<Schemas.Schema> schemas = getSchemaConfToObject( userName );

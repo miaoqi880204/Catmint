@@ -61,4 +61,9 @@ public class CatmintConfigEngineTest {
         HashMap<String,String> m = new HashMap<>();
         System.out.println(m.get( "s" ));
     }
+
+    @Test
+    public void getServerConfUserTest(){
+        System.out.println(CatmintConfigEngine.getServerConfUser("wh_shard_test").toString());
+    }
 }
