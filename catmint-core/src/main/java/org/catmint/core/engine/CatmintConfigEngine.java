@@ -1,0 +1,144 @@
+package org.catmint.core.engine;
+
+import com.google.common.base.Joiner;
+import org.apache.commons.lang3.StringUtils;
+import org.catmint.common.utilities.CatmintStringUtils;
+import org.catmint.config.SchemaDataNode;
+import org.catmint.config.Schemas;
+import org.catmint.config.ServerXML;
+import org.catmint.config.constant.Constant;
+import org.catmint.config.spi.local.AggregationConfig;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * <p>Title:获取本地XML配置相关方法</p>
+ * <p>Description:配置获取引擎</p>
+ *
+ * @author QIQI
+ * @date
+ */
+public final class CatmintConfigEngine {
+    private static final Map<String, String> CONFIG_ENGINE = new ConcurrentHashMap<>();
+
+    /**
+     * <p>Title:获取基础配置信息</p>
+     * <p>Description:</p>
+     *
+     * @return T
+     * @throws
+     * @author QIQI
+     * @params []
+     * @date 05/02/2020 10:56
+     */
+    public static <T extends ServerXML> T getBaseConf() {
+        return (T) AggregationConfig.LOCAL_CONFIG.get( Constant.SERVER );
+    }
+
+    /**
+     * <p>Title:获取schema信息,字符串形式</p>
+     * <p>Description:</p>
+     *
+     * @return java.lang.String  返回schema信息，逗号拼接
+     * @throws
+     * @author QIQI
+     * @params [userName - 传入数据库用户名]
+     * @date 05/02/2020 11:25
+     */
+    public static String getSchemaConfToString(final String userName) {
+        if (StringUtils.isBlank( CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName,"getSchemaConfToString" ) ) )) {
+            ServerXML serverXML = getBaseConf();
+            if (serverXML != null && serverXML.getUsers().size() > 0) {
+                for (ServerXML.User user : serverXML.getUsers()) {
+                    if (user.getName().equals( userName )) {
+                        CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName,"getSchemaConfToString" ), user.getSchemas() );
+                        return user.getSchemas();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * <p>Title:获取schema信息，对象形式</p>
+     * <p>Description:key-数据库用户名   val=ServerXML.User 对象信息</p>
+     *
+     * @return java.lang.String  返回schema-list<对象>
+     * @throws
+     * @author QIQI
+     * @params [userName - 传入数据库用户名]
+     * @date 05/02/2020 11:25
+     */
+    public static <T extends Schemas.Schema> List<T> getSchemaConfToObject(final String userName) {
+        String schemaStr = getSchemaConfToString( userName );
+        Schemas schemas = (Schemas) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA );
+        if (schemaStr != null) {
+            List<T> returnList = new LinkedList<>();
+            Arrays.stream( schemaStr.split( "," ) ).forEach( str -> {
+                schemas.getSchemas().forEach( schema -> {
+                    if (str.equals( schema.getName() )) {
+                        returnList.add( (T) schema );
+                    }
+                } );
+            } );
+            return returnList;
+        }
+        return null;
+    }
+
+    /**
+     * <p>Title:传入数据库用户名，获取物理库名称</p>
+     * <p>Description:返回字符串</p>
+     * @author QIQI
+     * @para
+     * @return java.lang.String  物理库名字逗号拼接返回
+     * @throws
+     * @date 05/02/2020 11:52
+     */
+    public static String getSchemaDatabaseNodeToString(final String userName){
+        StringBuilder stringBuilder = new StringBuilder();
+        SchemaDataNode schemaDataNode = (SchemaDataNode) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA_DATANODE );
+        List<Schemas.Schema> schemas = getSchemaConfToObject(userName);
+        if(schemas != null && !schemas.isEmpty()){
+            schemas.forEach( schema -> {
+                schemaDataNode.getDataNodes().forEach( dataNode -> {
+                    if(schema.getDataNode().equals( dataNode.getName() )){
+                        stringBuilder.append( (String) CatmintStringUtils.wildcardDatabaseInfo( dataNode.getDatabase(),1 ) );
+                    }
+                } );
+            } );
+        }
+        return stringBuilder.toString();
+    }
+
+
+    /**
+    * <p>Title:传入数据库用户名，获取物理库名称</p>
+    * <p>Description:返回对象</p>
+    * @author QIQI
+    * @params [userName]
+    * @return java.util.List<T>
+    * @throws
+    * @date 05/02/2020 14:05
+    */
+    public static <T extends SchemaDataNode.DataNode> List<T> getSchemaDatabaseNodeToObject(final String userName){
+        List<T> list = new LinkedList<>();
+        SchemaDataNode schemaDataNode = (SchemaDataNode) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA_DATANODE );
+        List<Schemas.Schema> schemas = getSchemaConfToObject(userName);
+        if(schemas != null && !schemas.isEmpty()){
+            schemas.forEach( schema -> {
+                schemaDataNode.getDataNodes().forEach( dataNode -> {
+                    if(schema.getDataNode().equals( dataNode.getName() )){
+                        list.addAll( CatmintStringUtils.wildcardDatabaseInfo( dataNode.getDatabase(),2 ) );
+                    }
+                } );
+            } );
+        }
+        return list;
+    }
+}

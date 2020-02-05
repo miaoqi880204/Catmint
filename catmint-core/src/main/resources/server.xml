@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<server  xmlns="catmint-server-xsd">
+<catmint-server  xmlns="catmint-server-xsd">
     <max-thread>30</max-thread>
-    <max-result-conut>1000</max-result-conut>
-    <processors>4</processors>
     <max-string-literal-length>65536</max-string-literal-length>
     <charset>utf-8</charset>
-    <sequnce-create-type>2</sequnce-create-type>
     <bind-ip>0.0.0.0</bind-ip>
 
     <!--
     <zookeeper-address></zookeeper-address>
     -->
-    <databases>
-        <logic-dbname>baozun-test</logic-dbname>
-        <user>wh_shard_test</user>
+    <user name="wh_shard_test">
         <password>Emxb6FmloXcYBPMANk2</password>
         <dialect>mysql</dialect>
-    </databases>
-</server>
+        <max-result-conut>500</max-result-conut>
+        <sequnce-create-type>2</sequnce-create-type>
+        <schemas>db_wh_shard_01,db_wh_shard_02</schemas>
+    </user>
+</catmint-server>

@@ -6,12 +6,9 @@ import org.apache.curator.framework.CuratorFramework;
 import org.catmint.common.utilities.IpUtils;
 import org.catmint.common.utilities.ZkClientFactory;
 import org.catmint.common.utilities.ZkClientUtils;
-import org.catmint.config.ConstantConfig;
 import org.catmint.config.ZookeeperConfigEnum;
-import org.catmint.config.model.ProxyConfig;
-import org.catmint.config.spi.ConfigCommon;
 import org.catmint.exception.config.ConfigException;
-import org.catmint.config.ServiceRegistryConfig;
+import org.catmint.config.spi.ServiceRegistryConfig;
 import org.catmint.exception.ExceptionEnum;
 
 /**
@@ -25,8 +22,8 @@ import org.catmint.exception.ExceptionEnum;
 public class ZkRegistyConfig implements ServiceRegistryConfig {
 
     @Override
-    public ProxyConfig register() {
-        ConstantConfig.ZK_ADDRESS = ConfigCommon.getLocalConf().getZookeeperAddress();
+    public boolean register() {
+        //ConstantConfig.ZK_ADDRESS = ConfigCommon.getLocalConf().getZookeeperAddress();
         CuratorFramework curatorFramework = ZkClientFactory.getCuratorFrameworkFactory();
         if (curatorFramework != null) {
             try {
@@ -36,12 +33,12 @@ public class ZkRegistyConfig implements ServiceRegistryConfig {
                     ZkClientUtils.create( curatorFramework, path, IpUtils.getLocalIp().getBytes() );
                 }
                 log.info( "zookeeper 初始化成功 >>>>>>>> NodeIp is {}",IpUtils.getLocalIp() );
-                return null;
+                return true;
             } catch (Exception e) {
                 log.error( "Zookeeper register error ",e );
                 throw new ConfigException( ExceptionEnum.ZK_INIT_ERROR.getMessage() );
             }
         }
-        return null;
+        return false;
     }
 }

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<route  xmlns="catmint-route-xsd">
-    <logic-name name="baozun-test" dbname="db_wh_shard_01">
-        <master ip="10.101.191.138"/>
-    </logic-name>
-
-</route>

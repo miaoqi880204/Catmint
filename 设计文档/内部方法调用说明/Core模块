@@ -1,3 +1,0 @@
-1.获取ProxyConfig初始化配置对象
-RegisterConfig registerConfig = BeanFactory.getBeanSingleton( RegisterConfig.class );
-ProxyConfig proxyConfig = registerConfig.initRegister();

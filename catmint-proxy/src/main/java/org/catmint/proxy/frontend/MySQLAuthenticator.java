@@ -4,9 +4,6 @@ import com.google.common.base.Strings;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
-import org.catmint.beanfactory.BeanFactory;
-import org.catmint.config.RegisterConfig;
-import org.catmint.config.model.ProxyConfig;
 import org.catmint.proxy.packet.*;
 import org.catmint.proxy.utilities.DigestUtils;
 
@@ -64,8 +61,6 @@ public final class MySQLAuthenticator {
     }
 
     private Optional<ProxyUser> getUser(final String username) {
-        RegisterConfig registerConfig = BeanFactory.getBeanSingleton(RegisterConfig.class);
-        ProxyConfig proxyConfig = registerConfig.initRegister();
         // TODO
         return Optional.of(new ProxyUser("123456", Collections.emptyList()));
 //        for (Map.Entry<String, ProxyUser> entry : SHARDING_PROXY_CONTEXT.getAuthentication().getUsers().entrySet()) {

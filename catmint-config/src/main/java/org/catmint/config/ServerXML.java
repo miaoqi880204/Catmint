@@ -1,10 +1,12 @@
-package org.catmint.config.model;
+package org.catmint.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -16,25 +18,35 @@ import java.util.LinkedList;
  * @author QIQI
  * @date
  */
-@Data
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JacksonXmlRootElement(localName = "server")
+@JacksonXmlRootElement(localName = "catmint-server")
+@ToString
 public class ServerXML extends BaseConf implements Serializable {
     private static final long serialVersionUID = 1047183330517702479L;
     @JacksonXmlElementWrapper(useWrapping = false)
-    @JacksonXmlProperty(localName = "databases")
-    private LinkedList<Database> databases;
+    @JacksonXmlProperty(localName = "user")
+    private LinkedList<User> users;
 
-    @Data
-    public static class Database implements Serializable{
-        private static final long serialVersionUID = 6846700337135067672L;
-        @JacksonXmlProperty(localName = "logic-dbname")
-        private String logicName;
-        @JacksonXmlProperty(localName = "user")
-        private String user;
+    @Getter
+    @Setter
+    @ToString
+    public static class User implements Serializable{
+        private static final long serialVersionUID = -2135515759865555507L;
+        @JacksonXmlProperty(localName = "name")
+        private String name;
         @JacksonXmlProperty(localName = "password")
         private String password;
         @JacksonXmlProperty(localName = "dialect")
         private String dialect;
+        //最大返回结果集
+        @JacksonXmlProperty(localName = "max-result-conut")
+        private int maxResultCount;
+        //主键生成策略
+        @JacksonXmlProperty(localName = "sequnce-create-type")
+        private int sequnceCreateType;
+        @JacksonXmlProperty(localName = "schemas")
+        private String schemas;
     }
 }

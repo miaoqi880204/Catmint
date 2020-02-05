@@ -1,9 +1,6 @@
 package org.catmint.init;
 
-import org.catmint.beanfactory.BeanFactory;
-import org.catmint.config.model.*;
-import org.catmint.core.config.InitConfig;
-import org.junit.Assert;
+import org.catmint.core.service.InitConfig;
 import org.junit.Test;
 
 /**
@@ -17,8 +14,7 @@ public class InitConfigTest {
 
     @Test
     public void testInitConfig() {
-        InitConfig initConfig = BeanFactory.getBeanSingleton( InitConfig.class );
-        ProxyConfig proxyConfig = initConfig.configRegister();
-        Assert.assertNotNull( proxyConfig );
+        InitConfig initConfig = new InitConfig();
+        initConfig.configRegister();
     }
 }

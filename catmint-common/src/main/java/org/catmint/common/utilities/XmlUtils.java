@@ -2,6 +2,7 @@ package org.catmint.common.utilities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +14,7 @@ import java.io.InputStream;
  * @author QIQI
  * @date
  */
+@Slf4j
 public class XmlUtils {
 
     /**
@@ -50,6 +52,7 @@ public class XmlUtils {
             }
             return null;
         } catch (Exception e) {
+            log.error( "xmlParsingByPath error ",e );
             return null;
         }
     }

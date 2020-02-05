@@ -1,6 +1,5 @@
-package org.catmint.config;
+package org.catmint.config.spi;
 
-import org.catmint.config.model.ProxyConfig;
 
 import java.util.Iterator;
 import java.util.ServiceLoader;
@@ -15,16 +14,13 @@ import java.util.ServiceLoader;
  */
 public class RegisterConfig {
 
-    public ProxyConfig initRegister() {
+    public void initRegister() {
         ServiceLoader<ServiceRegistryConfig> serviceRegistries = ServiceLoader.load( ServiceRegistryConfig.class );
-        ProxyConfig proxyConfig = null;
         if (null != serviceRegistries) {
             Iterator<ServiceRegistryConfig> serviceRegistryConfigIterator = serviceRegistries.iterator();
             while (serviceRegistryConfigIterator.hasNext()) {
-                proxyConfig = serviceRegistryConfigIterator.next().register();
-                if (proxyConfig != null) break;
+                if (serviceRegistryConfigIterator.next().register()) break;
             }
         }
-        return proxyConfig;
     }
 }
