@@ -95,7 +95,7 @@ public final class CatmintConfigEngine {
     }
 
     /**
-     * <p>Title:传入数据库用户名，获取物理库名称</p>
+     * <p>Title:传入数据库用户名，获取物理库名称，支持通配符格式配置解析 *</p>
      * <p>Description:返回字符串</p>
      *
      * @return java.lang.String  物理库名字逗号拼接返回
@@ -126,7 +126,7 @@ public final class CatmintConfigEngine {
 
 
     /**
-     * <p>Title:传入数据库用户名，获取物理库名称</p>
+     * <p>Title:传入数据库用户名，获取物理库名称 支持通配符格式配置解析 *</p>
      * <p>Description:返回对象</p>
      *
      * @return java.util.List<T>  返回List对象
