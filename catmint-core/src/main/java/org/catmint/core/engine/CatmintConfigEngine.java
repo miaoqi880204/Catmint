@@ -21,7 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class CatmintConfigEngine {
     private static final Map<String, String> CONFIG_ENGINE = new ConcurrentHashMap<>();
-    private static final String METHOS_SCHEMA = "getSchemaConfToString";
+    private static final String METHOD_SCHEMA = "getSchemaConfToString";
+    private static final String METHOD_DATANODE = "getSchemaDatabaseNodeToString";
 
 
     /**
@@ -50,19 +51,20 @@ public final class CatmintConfigEngine {
      */
     public static String getSchemaConfToString(final String userName) {
         StringBuilder stringBuilder = new StringBuilder();
-        Optional.ofNullable( userName ).ifPresent( v -> {
-            if (StringUtils.isBlank( CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOS_SCHEMA ) ) )) {
+        String resultCatch = CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_SCHEMA ) );
+        if (StringUtils.isBlank( resultCatch )) {
+            Optional.ofNullable( userName ).ifPresent( v -> {
                 ServerXML serverXML = getBaseConf();
-                if (serverXML != null && serverXML.getUsers().size() > 0) {
+                if (!serverXML.getUsers().isEmpty()) {
                     for (ServerXML.User user : serverXML.getUsers()) {
                         if (user.getName().equals( userName )) {
-                            CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName, METHOS_SCHEMA ), user.getSchemas() );
+                            CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName, METHOD_SCHEMA ), user.getSchemas() );
                             stringBuilder.append( user.getSchemas() );
                         }
                     }
                 }
-            }
-        } );
+            } );
+        } else stringBuilder.append( resultCatch );
         return stringBuilder.toString();
     }
 
@@ -104,17 +106,21 @@ public final class CatmintConfigEngine {
      */
     public static String getSchemaDatabaseNodeToString(final String userName) {
         StringBuilder stringBuilder = new StringBuilder();
-        SchemaDataNode schemaDataNode = (SchemaDataNode) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA_DATANODE );
-        List<Schemas.Schema> schemas = getSchemaConfToObject( userName );
-        if (schemas != null && !schemas.isEmpty()) {
-            schemas.forEach( schema -> {
-                schemaDataNode.getDataNodes().forEach( dataNode -> {
-                    if (schema.getDataNode().equals( dataNode.getName() )) {
-                        stringBuilder.append( (String) CatmintStringUtils.wildcardDatabaseInfo( dataNode.getDatabase(), 1 ) );
-                    }
+        String resultCatch = CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_DATANODE ) );
+        if (StringUtils.isBlank( resultCatch )) {
+            SchemaDataNode schemaDataNode = (SchemaDataNode) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA_DATANODE );
+            List<Schemas.Schema> schemas = getSchemaConfToObject( userName );
+            if (schemas != null && !schemas.isEmpty()) {
+                schemas.forEach( schema -> {
+                    schemaDataNode.getDataNodes().forEach( dataNode -> {
+                        if (schema.getDataNode().equals( dataNode.getName() )) {
+                            stringBuilder.append( (String) CatmintStringUtils.wildcardDatabaseInfo( dataNode.getDatabase(), 1 ) );
+                        }
+                    } );
                 } );
-            } );
-        }
+                CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName, METHOD_DATANODE ), stringBuilder.toString() );
+            }
+        } else stringBuilder.append( resultCatch );
         return stringBuilder.toString();
     }
 

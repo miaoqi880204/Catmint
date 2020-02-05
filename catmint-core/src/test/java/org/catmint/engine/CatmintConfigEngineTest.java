@@ -5,6 +5,7 @@ import org.catmint.core.engine.CatmintConfigEngine;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 /**
@@ -55,5 +56,9 @@ public class CatmintConfigEngineTest {
             xx.append( s );
         } );
         System.out.println(xx.toString());
+        System.out.println(Optional.ofNullable( xx.toString() ).orElse( "ssss" ));
+
+        HashMap<String,String> m = new HashMap<>();
+        System.out.println(m.get( "s" ));
     }
 }
