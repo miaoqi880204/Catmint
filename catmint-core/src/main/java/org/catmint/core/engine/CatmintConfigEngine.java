@@ -9,10 +9,7 @@ import org.catmint.config.ServerXML;
 import org.catmint.config.constant.Constant;
 import org.catmint.config.spi.local.AggregationConfig;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -24,6 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class CatmintConfigEngine {
     private static final Map<String, String> CONFIG_ENGINE = new ConcurrentHashMap<>();
+    private static final String METHOS_SCHEMA = "getSchemaConfToString";
+
 
     /**
      * <p>Title:获取基础配置信息</p>
@@ -50,18 +49,21 @@ public final class CatmintConfigEngine {
      * @date 05/02/2020 11:25
      */
     public static String getSchemaConfToString(final String userName) {
-        if (StringUtils.isBlank( CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName,"getSchemaConfToString" ) ) )) {
-            ServerXML serverXML = getBaseConf();
-            if (serverXML != null && serverXML.getUsers().size() > 0) {
-                for (ServerXML.User user : serverXML.getUsers()) {
-                    if (user.getName().equals( userName )) {
-                        CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName,"getSchemaConfToString" ), user.getSchemas() );
-                        return user.getSchemas();
+        StringBuilder stringBuilder = new StringBuilder();
+        Optional.ofNullable( userName ).ifPresent( v -> {
+            if (StringUtils.isBlank( CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOS_SCHEMA ) ) )) {
+                ServerXML serverXML = getBaseConf();
+                if (serverXML != null && serverXML.getUsers().size() > 0) {
+                    for (ServerXML.User user : serverXML.getUsers()) {
+                        if (user.getName().equals( userName )) {
+                            CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName, METHOS_SCHEMA ), user.getSchemas() );
+                            stringBuilder.append( user.getSchemas() );
+                        }
                     }
                 }
             }
-        }
-        return null;
+        } );
+        return stringBuilder.toString();
     }
 
     /**
@@ -77,8 +79,8 @@ public final class CatmintConfigEngine {
     public static <T extends Schemas.Schema> List<T> getSchemaConfToObject(final String userName) {
         String schemaStr = getSchemaConfToString( userName );
         Schemas schemas = (Schemas) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA );
-        if (schemaStr != null) {
-            List<T> returnList = new LinkedList<>();
+        List<T> returnList = new LinkedList<>();
+        Optional.ofNullable( schemas ).ifPresent( v -> {
             Arrays.stream( schemaStr.split( "," ) ).forEach( str -> {
                 schemas.getSchemas().forEach( schema -> {
                     if (str.equals( schema.getName() )) {
@@ -86,29 +88,29 @@ public final class CatmintConfigEngine {
                     }
                 } );
             } );
-            return returnList;
-        }
-        return null;
+        } );
+        return returnList;
     }
 
     /**
      * <p>Title:传入数据库用户名，获取物理库名称</p>
      * <p>Description:返回字符串</p>
-     * @author QIQI
-     * @para
+     *
      * @return java.lang.String  物理库名字逗号拼接返回
      * @throws
+     * @author QIQI
+     * @para
      * @date 05/02/2020 11:52
      */
-    public static String getSchemaDatabaseNodeToString(final String userName){
+    public static String getSchemaDatabaseNodeToString(final String userName) {
         StringBuilder stringBuilder = new StringBuilder();
         SchemaDataNode schemaDataNode = (SchemaDataNode) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA_DATANODE );
-        List<Schemas.Schema> schemas = getSchemaConfToObject(userName);
-        if(schemas != null && !schemas.isEmpty()){
+        List<Schemas.Schema> schemas = getSchemaConfToObject( userName );
+        if (schemas != null && !schemas.isEmpty()) {
             schemas.forEach( schema -> {
                 schemaDataNode.getDataNodes().forEach( dataNode -> {
-                    if(schema.getDataNode().equals( dataNode.getName() )){
-                        stringBuilder.append( (String) CatmintStringUtils.wildcardDatabaseInfo( dataNode.getDatabase(),1 ) );
+                    if (schema.getDataNode().equals( dataNode.getName() )) {
+                        stringBuilder.append( (String) CatmintStringUtils.wildcardDatabaseInfo( dataNode.getDatabase(), 1 ) );
                     }
                 } );
             } );
@@ -118,23 +120,24 @@ public final class CatmintConfigEngine {
 
 
     /**
-    * <p>Title:传入数据库用户名，获取物理库名称</p>
-    * <p>Description:返回对象</p>
-    * @author QIQI
-    * @params [userName]
-    * @return java.util.List<T>
-    * @throws
-    * @date 05/02/2020 14:05
-    */
-    public static <T extends SchemaDataNode.DataNode> List<T> getSchemaDatabaseNodeToObject(final String userName){
+     * <p>Title:传入数据库用户名，获取物理库名称</p>
+     * <p>Description:返回对象</p>
+     *
+     * @return java.util.List<T>  返回List对象
+     * @throws
+     * @author QIQI
+     * @params [userName]
+     * @date 05/02/2020 14:05
+     */
+    public static <T extends SchemaDataNode.DataNode> List<T> getSchemaDatabaseNodeToObject(final String userName) {
         List<T> list = new LinkedList<>();
         SchemaDataNode schemaDataNode = (SchemaDataNode) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA_DATANODE );
-        List<Schemas.Schema> schemas = getSchemaConfToObject(userName);
-        if(schemas != null && !schemas.isEmpty()){
+        List<Schemas.Schema> schemas = getSchemaConfToObject( userName );
+        if (schemas != null && !schemas.isEmpty()) {
             schemas.forEach( schema -> {
                 schemaDataNode.getDataNodes().forEach( dataNode -> {
-                    if(schema.getDataNode().equals( dataNode.getName() )){
-                        list.addAll( CatmintStringUtils.wildcardDatabaseInfo( dataNode.getDatabase(),2 ) );
+                    if (schema.getDataNode().equals( dataNode.getName() )) {
+                        list.addAll( CatmintStringUtils.wildcardDatabaseInfo( dataNode.getDatabase(), 2 ) );
                     }
                 } );
             } );
