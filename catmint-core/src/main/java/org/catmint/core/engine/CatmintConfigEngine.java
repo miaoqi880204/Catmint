@@ -25,6 +25,8 @@ public final class CatmintConfigEngine {
     private static final String METHOD_SCHEMA = "getSchemaConfToString";
     private static final String METHOD_DATANODE = "getSchemaDatabaseNodeToString";
     private static final String METHOD_USER = "getServerConf";
+    private static final String DT = ",";
+    private static final String LS = " | ";
 
 
     /**
@@ -52,16 +54,16 @@ public final class CatmintConfigEngine {
      * @date 05/02/2020 10:56
      */
     public static ProxyUser getServerConfUser(final String userName) {
-        ProxyUser proxyUser = (ProxyUser) CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_USER ) );
+        ProxyUser proxyUser = (ProxyUser) CONFIG_ENGINE.get( Joiner.on( LS ).join( userName, METHOD_USER ) );
         if (!Optional.ofNullable( proxyUser ).isPresent()) {
             ServerXML serverXML = getBaseConf();
             for(ServerXML.User user : serverXML.getUsers()){
                 if (user.getName().equals( userName )) {
                     proxyUser = new ProxyUser( userName, user.getPassword(),
-                            new HashSet<>( Splitter.on( "," ).splitToList( getSchemaDatabaseNodeToString( userName ) ) ) );
+                            new HashSet<>( Splitter.on( DT ).splitToList( getSchemaDatabaseNodeToString( userName ) ) ) );
                 }
             }
-            CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName, METHOD_USER ),proxyUser );
+            CONFIG_ENGINE.put( Joiner.on( LS ).join( userName, METHOD_USER ),proxyUser );
         }
         return proxyUser;
     }
@@ -78,14 +80,14 @@ public final class CatmintConfigEngine {
      */
     public static String getSchemaConfToString(final String userName) {
         StringBuilder stringBuilder = new StringBuilder();
-        String resultCatch = (String) CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_SCHEMA ) );
+        String resultCatch = (String) CONFIG_ENGINE.get( Joiner.on( LS ).join( userName, METHOD_SCHEMA ) );
         if (StringUtils.isBlank( resultCatch )) {
             Optional.ofNullable( userName ).ifPresent( v -> {
                 ServerXML serverXML = getBaseConf();
                 if (!serverXML.getUsers().isEmpty()) {
                     for (ServerXML.User user : serverXML.getUsers()) {
                         if (user.getName().equals( userName )) {
-                            CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName, METHOD_SCHEMA ), user.getSchemas() );
+                            CONFIG_ENGINE.put( Joiner.on( LS ).join( userName, METHOD_SCHEMA ), user.getSchemas() );
                             stringBuilder.append( user.getSchemas() );
                         }
                     }
@@ -110,7 +112,7 @@ public final class CatmintConfigEngine {
         Schemas schemas = (Schemas) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA );
         List<T> returnList = new LinkedList<>();
         Optional.ofNullable( schemas ).ifPresent( v -> {
-            Arrays.stream( schemaStr.split( "," ) ).forEach( str -> {
+            Arrays.stream( schemaStr.split( DT ) ).forEach( str -> {
                 schemas.getSchemas().forEach( schema -> {
                     if (str.equals( schema.getName() )) {
                         returnList.add( (T) schema );
@@ -133,7 +135,7 @@ public final class CatmintConfigEngine {
      */
     public static String getSchemaDatabaseNodeToString(final String userName) {
         StringBuilder stringBuilder = new StringBuilder();
-        String resultCatch = (String) CONFIG_ENGINE.get( Joiner.on( " | " ).join( userName, METHOD_DATANODE ) );
+        String resultCatch = (String) CONFIG_ENGINE.get( Joiner.on( LS ).join( userName, METHOD_DATANODE ) );
         if (StringUtils.isBlank( resultCatch )) {
             SchemaDataNode schemaDataNode = (SchemaDataNode) AggregationConfig.LOCAL_CONFIG.get( Constant.SCHEMA_DATANODE );
             List<Schemas.Schema> schemas = getSchemaConfToObject( userName );
@@ -145,7 +147,7 @@ public final class CatmintConfigEngine {
                         }
                     } );
                 } );
-                CONFIG_ENGINE.put( Joiner.on( " | " ).join( userName, METHOD_DATANODE ), stringBuilder.toString() );
+                CONFIG_ENGINE.put( Joiner.on( LS ).join( userName, METHOD_DATANODE ), stringBuilder.toString() );
             }
         } else stringBuilder.append( resultCatch );
         return stringBuilder.toString();
