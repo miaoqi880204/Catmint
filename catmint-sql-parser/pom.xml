@@ -2,21 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
     <parent>
-        <groupId>org.catmint</groupId>
         <artifactId>catmint-parent</artifactId>
+        <groupId>org.catmint</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>catmint-core</artifactId>
-
+    <artifactId>catmint-sql-parser</artifactId>
+    <packaging>pom</packaging>
     <modules>
-        <module>catmint-core-config</module>
-        <module>catmint-core-service</module>
-        <module>catmint-core-tools</module>
-        <module>catmint-core-route</module>
-        <module>catmint-core-execute</module>
+        <module>catmint-sql-parser-engine</module>
+        <module>catmint-sql-parser-mysql</module>
+        <module>catmint-sql-parser-spi</module>
     </modules>
+
+
 </project>

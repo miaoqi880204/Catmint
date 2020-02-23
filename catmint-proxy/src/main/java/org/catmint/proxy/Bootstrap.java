@@ -2,7 +2,7 @@ package org.catmint.proxy;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.catmint.config.spi.RegisterConfig;
+import org.catmint.core.service.config.spi.RegisterConfig;
 import org.catmint.proxy.net.CatmintServer;
 
 /**

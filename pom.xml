@@ -10,115 +10,134 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <netty.all.version>4.1.43.Final</netty.all.version>
+        <curator.framework.version>4.2.0</curator.framework.version>
+        <curator.recipes.version>4.2.0</curator.recipes.version>
+        <zookeeper.version>3.4.13</zookeeper.version>
+        <commons.collections4.version>4.2</commons.collections4.version>
+        <commons.codec.version>1.10</commons.codec.version>
+        <snakeyaml.version>1.16</snakeyaml.version>
+        <cglib.nodep.version>3.3.0</cglib.nodep.version>
+        <jackson.core.version>2.10.0</jackson.core.version>
+        <jackson.dataformat.xml.version>2.9.9</jackson.dataformat.xml.version>
+        <guava.version>28.1-jre</guava.version>
+        <lombok.version>1.18.8</lombok.version>
+        <junit.version>4.13-rc-1</junit.version>
+        <slf4j.api.version>1.7.25</slf4j.api.version>
+        <log4j.slf4j.impl.version>2.11.2</log4j.slf4j.impl.version>
+        <commons.lang3.version>3.9</commons.lang3.version>
     </properties>
 
     <modules>
         <module>catmint-proxy</module>
         <module>catmint-core</module>
         <module>catmint-monitor</module>
-        <module>catmint-config</module>
-        <module>catmint-common</module>
         <module>catmint-client</module>
+        <module>catmint-jdbc</module>
+        <module>catmint-sql-parser</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons.lang3.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
-                <version>4.1.43.Final</version>
+                <version>${netty.all.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-framework</artifactId>
-                <version>4.2.0</version>
+                <version>${curator.framework.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-recipes</artifactId>
-                <version>4.2.0</version>
+                <version>${curator.recipes.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
-                <version>3.4.13</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.9</version>
+                <version>${zookeeper.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
-                <version>4.2</version>
+                <version>${commons.collections4.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
-                <version>1.10</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>28.1-jre</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.8</version>
-            </dependency>
-
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.13-rc-1</version>
+                <version>${commons.codec.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.yaml</groupId>
                 <artifactId>snakeyaml</artifactId>
-                <version>1.16</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.25</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>2.11.2</version>
+                <version>${snakeyaml.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib-nodep</artifactId>
-                <version>3.3.0</version>
+                <version>${cglib.nodep.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
-                <version>2.10.0</version>
+                <version>${jackson.core.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-xml</artifactId>
-                <version>2.9.9</version>
+                <version>${jackson.dataformat.xml.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.slf4j.impl.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

@@ -25,17 +25,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.catmint</groupId>
-            <artifactId>catmint-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
             <scope>provided</scope>

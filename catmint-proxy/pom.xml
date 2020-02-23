@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.catmint</groupId>
-            <artifactId>catmint-core</artifactId>
+            <artifactId>catmint-core-service</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -35,20 +35,8 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
         </dependency>
     </dependencies>
 </project>

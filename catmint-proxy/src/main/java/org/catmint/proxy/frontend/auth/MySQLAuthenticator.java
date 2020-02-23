@@ -4,8 +4,8 @@ import com.google.common.base.Strings;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
-import org.catmint.core.engine.CatmintConfigEngine;
-import org.catmint.core.engine.ProxyUser;
+import org.catmint.core.config.ProxyUser;
+import org.catmint.core.service.engine.CatmintConfigEngine;
 import org.catmint.proxy.packet.*;
 import org.catmint.proxy.utilities.DigestUtils;
 
