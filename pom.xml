@@ -31,10 +31,10 @@
     <modules>
         <module>catmint-proxy</module>
         <module>catmint-core</module>
-        <module>catmint-monitor</module>
         <module>catmint-client</module>
         <module>catmint-jdbc</module>
         <module>catmint-sql-parser</module>
+        <module>catmint-transaction</module>
     </modules>
 
     <dependencyManagement>

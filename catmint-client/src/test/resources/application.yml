@@ -1,7 +1,0 @@
-org:
-  catmint:
-    zk:
-      address: localhost:2181
-logging:
-  level:
-    root: info

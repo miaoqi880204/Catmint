@@ -36,3 +36,5 @@ HELP.md
 
 catmint-io/src/test/resources/application.yml
 
+
+*.class
