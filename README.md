@@ -4,6 +4,3 @@
 * 我们的目的就是为了设计出一个更加轻量级，性能更好但是又不像Sharding那样对代码入侵性特别高的东西，由此出现了Catmint
 
 
-## 架构设计图
-![avatar](http://q2jqzh8ar.bkt.clouddn.com/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1.png-ss)
-
