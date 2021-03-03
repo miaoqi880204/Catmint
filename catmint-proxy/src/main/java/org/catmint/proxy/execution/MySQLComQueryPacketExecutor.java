@@ -9,11 +9,15 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Collections;
 
-/**
- * COM_QUERY command packet executor for MySQL.
- *
- * @author zhangliang
- */
+/*
+* <p>Title:Mysql 非预编译查询解析执行</p>
+* <p>Description:COM_QUERY</p>
+* @author QIQI
+* @params
+* @return 
+* @throws 
+* @date 2021/3/3 下午9:11 
+*/
 @Slf4j
 public final class MySQLComQueryPacketExecutor implements QueryCommandExecutor {
 
@@ -23,13 +27,7 @@ public final class MySQLComQueryPacketExecutor implements QueryCommandExecutor {
 
     @Override
     public Collection<DatabasePacket> execute() throws SQLException {
-        // TODO
         return Collections.singleton(new MySQLOKPacket(1, 0, 0));
-    }
-
-    @Override
-    public boolean isQuery() {
-        return false;
     }
 
     @Override

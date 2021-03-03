@@ -19,7 +19,7 @@ public class ConstantConfig {
     public static final int ZOOKEEPER_SESSION_TIMEOUT = 60000;
 
     public static final String SERVER_CONF = "server.xml";
-    public static final String ROUTE_CONF = "route.xml";
+    public static final String SCHEMA_CONF = "schema.xml";
 
     public static String ZK_ADDRESS = null;
 }

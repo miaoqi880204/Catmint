@@ -27,9 +27,13 @@ public final class MySQLCommandExecutionEngine {
      * @throws SQLException
      */
     public void executeCommand(final ChannelHandlerContext context, final ByteBuf message) throws SQLException {
+        //生成数据载体
         MySQLPacketPayload payload = new MySQLPacketPayload(message);
+        //获取命令解析模式
         MySQLCommandPacketType packetType = MySQLCommandPacketTypeLoader.getCommandPacketType(payload);
+        //解码获取SQL
         MySQLCommandPacket commandPacket = MySQLCommandPacketFactory.newInstance(packetType, payload);
+        //选择执行器
         CommandExecutor commandExecutor = MySQLCommandExecutorFactory.newInstance(packetType, commandPacket);
         Collection<DatabasePacket> responsePackets = commandExecutor.execute();
         for (DatabasePacket each : responsePackets) {

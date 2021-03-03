@@ -55,8 +55,6 @@ public final class CatmintServer {
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
-            // TODO 关闭 backend 连接
-//            BackendExecutorContext.getInstance().getExecuteEngine().close();
         }
     }
 

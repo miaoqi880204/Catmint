@@ -14,9 +14,12 @@
 
     <modules>
         <module>catmint-core-config</module>
-        <module>catmint-core-service</module>
+        <module>catmint-core-common</module>
         <module>catmint-core-tools</module>
         <module>catmint-core-route</module>
         <module>catmint-core-execute</module>
+        <module>catmint-core-context</module>
     </modules>
+
+
 </project>

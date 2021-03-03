@@ -18,13 +18,13 @@ public final class MySQLComQueryPacket extends MySQLCommandPacket {
     private final String sql;
 
     public MySQLComQueryPacket(final MySQLPacketPayload payload) {
-        super(MySQLCommandPacketType.COM_QUERY);
+        super( MySQLCommandPacketType.COM_QUERY );
         sql = payload.readStringEOF();
     }
 
     @Override
     public void doWrite(final MySQLPacketPayload payload) {
-        payload.writeStringEOF(sql);
+        payload.writeStringEOF( sql );
     }
 }
 

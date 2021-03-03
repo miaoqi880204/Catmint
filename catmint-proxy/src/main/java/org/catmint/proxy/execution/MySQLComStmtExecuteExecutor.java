@@ -17,11 +17,6 @@ public final class MySQLComStmtExecuteExecutor implements QueryCommandExecutor {
     }
 
     @Override
-    public boolean isQuery() {
-        return false;
-    }
-
-    @Override
     public boolean next() throws SQLException {
         return false;
     }

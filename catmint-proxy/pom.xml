@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>org.catmint</groupId>
-            <artifactId>catmint-core-service</artifactId>
+            <artifactId>catmint-core-common</artifactId>
             <version>${project.version}</version>
         </dependency>
 

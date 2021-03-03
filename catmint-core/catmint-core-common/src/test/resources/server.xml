@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catmint-server  xmlns="catmint-server-xsd">
+    <max-thread>30</max-thread>
+    <max-string-literal-length>65536</max-string-literal-length>
+    <charset>utf-8</charset>
+    <bind-ip>0.0.0.0</bind-ip>
+
+    <!--
+    <zookeeper-address></zookeeper-address>
+    -->
+    <user name="wmq">
+        <password>www880204</password>
+        <dialect>mysql</dialect>
+        <max-result-conut>500</max-result-conut>
+        <sequnce-create-type>2</sequnce-create-type>
+        <schemas>db_wh_shard_01,db_wh_shard_02</schemas>
+    </user>
+</catmint-server>

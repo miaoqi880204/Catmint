@@ -13,7 +13,8 @@ public enum ExceptionEnum {
      * 系统级别异常
      */
     STAND_ALONE( "当前单机模式执行，未找到可用的注册中心地址" ),
-    ZK_INIT_ERROR( "zookeeper 初始化失败" );
+    ZK_INIT_ERROR( "zookeeper 初始化失败" ),
+    METADATA_URL_ERROR( "数据源元信息URL解析错误，URL is '%s'" );
 
     /**
      * 描述
