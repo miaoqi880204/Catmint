@@ -4,7 +4,9 @@
     <packaging>pom</packaging>
     <groupId>org.catmint</groupId>
     <artifactId>catmint-parent</artifactId>
+    <name>catmint-parent</name>
     <version>1.0.0-SNAPSHOT</version>
+    <url>http://maven.apache.org</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,6 +29,21 @@
         <log4j.slf4j.impl.version>2.11.2</log4j.slf4j.impl.version>
         <commons.lang3.version>3.9</commons.lang3.version>
     </properties>
+
+    <!-- 打包发布 -->
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>nexus-releases</name>
+            <url>http://itcentral.baozun.cn/nexus/content/repositories/releases/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>nexus-snapshots</name>
+            <url>http://itcentral.baozun.cn/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <modules>
         <module>catmint-proxy</module>

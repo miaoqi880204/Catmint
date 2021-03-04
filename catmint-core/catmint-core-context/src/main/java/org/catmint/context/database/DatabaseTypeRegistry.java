@@ -33,6 +33,7 @@ public final class DatabaseTypeRegistry {
             DATABASE_TYPES.put(each.getName(), each);
         }
     }
+
     /**
      * Get actual database type.
      *

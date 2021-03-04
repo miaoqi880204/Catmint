@@ -7,8 +7,14 @@ import org.catmint.proxy.net.codec.MySQLPacketCodecEngine;
 import org.catmint.proxy.net.codec.PacketCodec;
 
 /**
- * @author Shuo Xiang
- */
+* <p>Title:Netty Pipeline init</p>
+* <p>Description:</p>
+* @author QIQI
+* @params
+* @return
+* @throws
+* @date 2021/3/4 上午11:02
+*/
 public final class ServerHandlerInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
