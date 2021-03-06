@@ -17,20 +17,5 @@
             <artifactId>catmint-core-context</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.catmint</groupId>
-            <artifactId>catmint-core-route</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.catmint</groupId>
-            <artifactId>catmint-core-execute</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.catmint</groupId>
-            <artifactId>catmint-core-context</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 </project>

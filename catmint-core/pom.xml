@@ -20,6 +20,4 @@
         <module>catmint-core-execute</module>
         <module>catmint-core-context</module>
     </modules>
-
-
 </project>

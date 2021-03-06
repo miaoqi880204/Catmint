@@ -11,5 +11,11 @@
 
     <artifactId>catmint-sql-parser-mysql</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.catmint</groupId>
+            <artifactId>catmint-sql-parser-spi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

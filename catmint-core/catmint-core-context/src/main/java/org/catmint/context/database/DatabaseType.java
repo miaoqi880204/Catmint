@@ -1,5 +1,7 @@
 package org.catmint.context.database;
 
+import org.catmint.context.database.metadata.DataSourceMetaData;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;

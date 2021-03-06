@@ -7,8 +7,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Database type of MySQL.
- */
+* <p>Title:Mysql数据库类型</p>
+* <p>Description:</p>
+* @author QIQI
+* @params
+* @return 
+* @throws 
+* @date 2021/3/5 下午5:40 
+*/
 public final class MySQLDatabaseType implements DatabaseType {
     
     @Override

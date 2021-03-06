@@ -11,5 +11,26 @@
 
     <artifactId>catmint-sql-parser-engine</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.catmint</groupId>
+            <artifactId>catmint-core-context</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.catmint</groupId>
+            <artifactId>catmint-sql-parser-spi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+        </dependency>
+    </dependencies>
 </project>

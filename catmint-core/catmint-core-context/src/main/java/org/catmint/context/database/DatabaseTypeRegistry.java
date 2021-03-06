@@ -26,7 +26,7 @@ import java.util.ServiceLoader;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DatabaseTypeRegistry {
     private static final Map<String, DatabaseType> DATABASE_TYPES = new HashMap<>();
-    private static final String DEFAULT_DATABASE_TYPE = "MySQL";
+    public static final String DEFAULT_DATABASE_TYPE = "MySQL";
     
     static {
         for (DatabaseType each : ServiceLoader.load(DatabaseType.class)) {

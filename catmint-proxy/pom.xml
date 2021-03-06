@@ -17,7 +17,11 @@
             <artifactId>catmint-core-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.catmint</groupId>
+            <artifactId>catmint-sql-parser-engine</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
