@@ -1,5 +1,6 @@
 package org.catmint.sql.parser.mysql;
 
+import org.catmint.core.config.define.DialectEnum;
 import org.catmint.sql.parser.spi.SQLLexer;
 import org.catmint.sql.parser.spi.SQLParser;
 import org.catmint.sql.parser.spi.SQLParserSpecies;
@@ -14,7 +15,7 @@ import org.catmint.sql.parser.spi.SQLParserSpecies;
 public class MysqlSQLParserSpecies implements SQLParserSpecies {
     @Override
     public String getDatabaseType() {
-        return "MySQL";
+        return DialectEnum.MYSQL.getName();
     }
 
     @Override public Class<? extends SQLLexer> getLexerClass() {

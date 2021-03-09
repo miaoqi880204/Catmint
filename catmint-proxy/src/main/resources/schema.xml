@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catmint-schema  xmlns="catmint-schema-xsd">
     <schemas>
-        <schema name="db_wh_shard_01" general-table="true" data-node="catmint-node-test" rule="catmint-rule-test"/>
+        <schema name="one" general-table="true" data-node="catmint-node-test" rule="catmint-rule-test"/>
     </schemas>
 
     <data-nodes>

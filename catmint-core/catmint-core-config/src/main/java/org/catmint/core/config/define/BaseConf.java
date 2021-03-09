@@ -32,4 +32,6 @@ public class BaseConf implements Serializable {
     //可服务监听地址
     @JacksonXmlProperty(localName = "bind-ip")
     private String bindIp;
+    @JacksonXmlProperty(localName = "dialect")
+    private String dialect;
 }

@@ -7,6 +7,7 @@ import io.netty.handler.codec.ByteToMessageCodec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.catmint.proxy.packet.DatabasePacket;
+import org.catmint.proxy.protocol.DatabaseProtocolEngine;
 
 import java.util.List;
 
@@ -19,26 +20,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PacketCodec extends ByteToMessageCodec<DatabasePacket> {
 
-    private final DatabasePacketCodecEngine databasePacketCodecEngine;
+    private final DatabaseProtocolEngine databaseProtocolEngine;
 
     @Override
     protected void decode(final ChannelHandlerContext context, final ByteBuf in, final List<Object> out) {
         int readableBytes = in.readableBytes();
-        if (!databasePacketCodecEngine.isValidHeader(readableBytes)) {
+        if (!databaseProtocolEngine.getCodecEngine().isValidHeader( readableBytes )) {
             return;
         }
         if (log.isDebugEnabled()) {
-            log.debug("Read from client {} : \n {}", context.channel().id().asShortText(), ByteBufUtil.prettyHexDump(in));
+            log.debug( "Read from client {} : \n {}", context.channel().id().asShortText(), ByteBufUtil.prettyHexDump( in ) );
         }
-        databasePacketCodecEngine.decode(context, in, out, readableBytes);
+        databaseProtocolEngine.getCodecEngine().decode( context, in, out, readableBytes );
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void encode(final ChannelHandlerContext context, final DatabasePacket message, final ByteBuf out) {
-        databasePacketCodecEngine.encode(context, message, out);
+        databaseProtocolEngine.getCodecEngine().encode( context, message, out );
         if (log.isDebugEnabled()) {
-            log.debug("Write to client {} : \n {}", context.channel().id().asShortText(), ByteBufUtil.prettyHexDump(out));
+            log.debug( "Write to client {} : \n {}", context.channel().id().asShortText(), ByteBufUtil.prettyHexDump( out ) );
         }
     }
 }

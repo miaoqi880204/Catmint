@@ -13,7 +13,7 @@ import org.junit.Test;
 public class XmlTest {
     @Test
     public void testServerXml(){
-        ServerXML serverXML = XmlUtils.xmlParsingByPath( "server.xml", ServerXML.class );
+        Server serverXML = XmlUtils.xmlParsingByPath( "server.xml", Server.class );
         Assert.assertNotNull( serverXML );
     }
 

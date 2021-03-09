@@ -46,11 +46,11 @@ public final class CatmintServer {
             ServerBootstrap bootstrap = new ServerBootstrap();
             bossGroup = createEventLoopGroup();
             if (bossGroup instanceof EpollEventLoopGroup) {
-                groupsEpoll(bootstrap);
+                groupsEpoll( bootstrap );
             } else {
-                groupsNio(bootstrap);
+                groupsNio( bootstrap );
             }
-            ChannelFuture future = bootstrap.bind(port).sync();
+            ChannelFuture future = bootstrap.bind( port ).sync();
             future.channel().closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();
@@ -59,32 +59,32 @@ public final class CatmintServer {
     }
 
     private EventLoopGroup createEventLoopGroup() {
-        return Epoll.isAvailable() ? new EpollEventLoopGroup(1) : new NioEventLoopGroup(1);
+        return Epoll.isAvailable() ? new EpollEventLoopGroup( 1 ) : new NioEventLoopGroup( 1 );
     }
 
     private void groupsEpoll(final ServerBootstrap bootstrap) {
         workerGroup = new EpollEventLoopGroup();
-        bootstrap.group(bossGroup, workerGroup)
-                .channel(EpollServerSocketChannel.class)
-                .option(EpollChannelOption.SO_BACKLOG, 128)
-                .option(EpollChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(8 * 1024 * 1024, 16 * 1024 * 1024))
-                .option(EpollChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .childOption(EpollChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .childOption(EpollChannelOption.TCP_NODELAY, true)
-                .handler(new LoggingHandler(LogLevel.INFO))
-                .childHandler(new ServerHandlerInitializer());
+        bootstrap.group( bossGroup, workerGroup )
+                .channel( EpollServerSocketChannel.class )
+                .option( EpollChannelOption.SO_BACKLOG, 128 )
+                .option( EpollChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark( 8 * 1024 * 1024, 16 * 1024 * 1024 ) )
+                .option( EpollChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT )
+                .childOption( EpollChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT )
+                .childOption( EpollChannelOption.TCP_NODELAY, true )
+                .handler( new LoggingHandler( LogLevel.INFO ) )
+                .childHandler( new ServerHandlerInitializer() );
     }
 
     private void groupsNio(final ServerBootstrap bootstrap) {
         workerGroup = new NioEventLoopGroup();
-        bootstrap.group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class)
-                .option(ChannelOption.SO_BACKLOG, 128)
-                .option(ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark(8 * 1024 * 1024, 16 * 1024 * 1024))
-                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .childOption(ChannelOption.TCP_NODELAY, true)
-                .handler(new LoggingHandler(LogLevel.INFO))
-                .childHandler(new ServerHandlerInitializer());
+        bootstrap.group( bossGroup, workerGroup )
+                .channel( NioServerSocketChannel.class )
+                .option( ChannelOption.SO_BACKLOG, 128 )
+                .option( ChannelOption.WRITE_BUFFER_WATER_MARK, new WriteBufferWaterMark( 8 * 1024 * 1024, 16 * 1024 * 1024 ) )
+                .option( ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT )
+                .childOption( ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT )
+                .childOption( ChannelOption.TCP_NODELAY, true )
+                .handler( new LoggingHandler( LogLevel.INFO ) )
+                .childHandler( new ServerHandlerInitializer() );
     }
 }

@@ -1,6 +1,7 @@
 package org.catmint.sql.parse.engine;
 
-import org.catmint.context.database.DatabaseType;
+import org.catmint.core.config.define.BaseConf;
+import org.catmint.core.config.define.ProxyUser;
 
 /**
  * <p>Title:sql 解析引擎入口</p>
@@ -15,11 +16,11 @@ import org.catmint.context.database.DatabaseType;
 public final class CatmintSQLParserEngine {
     private static volatile SQLStatementParserEngine sqlStatementParserEngine;
 
-    public static SQLStatementParserEngine newInstance(final DatabaseType databaseType) {
+    public static SQLStatementParserEngine newInstance(final BaseConf baseConf) {
         if (sqlStatementParserEngine == null) {
             synchronized (CatmintSQLParserEngine.class) {
                 if (sqlStatementParserEngine == null) {
-                    sqlStatementParserEngine = new SQLStatementParserEngine( databaseType.getName() );
+                    sqlStatementParserEngine = new SQLStatementParserEngine( baseConf.getDialect() );
                 }
             }
         }

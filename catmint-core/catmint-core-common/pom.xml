@@ -14,8 +14,13 @@
     <dependencies>
         <dependency>
             <groupId>org.catmint</groupId>
-            <artifactId>catmint-core-context</artifactId>
+            <artifactId>catmint-core-tools</artifactId>
             <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -17,5 +17,10 @@
             <artifactId>catmint-sql-parser-spi</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.catmint</groupId>
+            <artifactId>catmint-core-context</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

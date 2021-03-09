@@ -4,15 +4,14 @@
     <max-string-literal-length>65536</max-string-literal-length>
     <charset>utf-8</charset>
     <bind-ip>0.0.0.0</bind-ip>
-
+    <dialect>MySQL</dialect>
     <!--
     <zookeeper-address></zookeeper-address>
     -->
     <user name="wmq">
         <password>www880204</password>
-        <dialect>mysql</dialect>
         <max-result-conut>500</max-result-conut>
         <sequnce-create-type>2</sequnce-create-type>
-        <schemas>db_wh_shard_01,db_wh_shard_02</schemas>
+        <schemas>one,two</schemas>
     </user>
 </catmint-server>

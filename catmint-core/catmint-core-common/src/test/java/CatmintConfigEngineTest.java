@@ -1,8 +1,12 @@
-import org.catmint.core.common.config.spi.local.AggregationConfig;
-import org.catmint.core.common.engine.CatmintConfigUtils;
+import org.catmint.core.common.spi.configcenter.AggregationConfig;
+import org.catmint.core.common.utils.CatmintConfigUtils;
+import org.catmint.core.config.define.*;
+import org.catmint.core.tools.common.XmlUtils;
+import org.catmint.core.tools.config.ConstantConfig;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -14,34 +18,20 @@ import java.util.Optional;
  * @date
  */
 public class CatmintConfigEngineTest {
-    @Before
-    public void before(){
-        AggregationConfig.excute();
-    }
 
-    @Test
-    public void getBaseConfTest(){
-        System.out.println( CatmintConfigUtils.getBaseConf().toString());
+    @Before
+    public void before() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        AggregationConfig.CONFIG.put( ConfigConstant.SERVER, XmlUtils.xmlParsingByPath( ConstantConfig.SERVER_CONF, Server.class ) );
+        AggregationConfig.CONFIG.put( ConfigConstant.SCHEMA, XmlUtils.xmlParsingByPath( ConstantConfig.SCHEMA_CONF, Schemas.class ) );
+        AggregationConfig.CONFIG.put( ConfigConstant.SCHEMA_DATANODE, XmlUtils.xmlParsingByPath( ConstantConfig.SCHEMA_CONF, SchemaDataNode.class ) );
+        AggregationConfig.CONFIG.put( ConfigConstant.SCHEMA_RULE, XmlUtils.xmlParsingByPath( ConstantConfig.SCHEMA_CONF, SchemaRule.class ) );
+        AggregationConfig.CONFIG.put( ConfigConstant.SCHEMA_ROUTE, XmlUtils.xmlParsingByPath( ConstantConfig.SCHEMA_CONF, SchemaRoute.class ) );
+        CatmintConfigUtils.newInstance();
     }
 
     @Test
     public void getSchemaConfToStringTest(){
-        System.out.println( CatmintConfigUtils.getSchemaConfToString("wh_shard_test").toString());
-    }
-
-    @Test
-    public void getSchemaConfToObjectTest(){
-        System.out.println( CatmintConfigUtils.getSchemaConfToObject("wh_shard_test").toString());
-    }
-
-    @Test
-    public void getSchemaDatabaseNodeToStringTest(){
-        System.out.println( CatmintConfigUtils.getSchemaDatabaseNodeToString("wh_shard_test").toString());
-    }
-
-    @Test
-    public void getSchemaDatabaseNodeToObjectTest(){
-        System.out.println( CatmintConfigUtils.getSchemaDatabaseNodeToObject("wh_shard_test").toString());
+        System.out.println( CatmintConfigUtils.getProxyUser("wh_shard_test").toString());
     }
 
     @Test
@@ -62,6 +52,6 @@ public class CatmintConfigEngineTest {
 
     @Test
     public void getServerConfUserTest(){
-        System.out.println( CatmintConfigUtils.getServerConfUser("wh_shard_test").toString());
+        System.out.println( CatmintConfigUtils.getProxyUser("wh_shard_test").toString());
     }
 }

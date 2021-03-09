@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>org.catmint</groupId>
-            <artifactId>catmint-sql-parser-spi</artifactId>
+            <artifactId>catmint-sql-parser-mysql</artifactId>
             <version>${project.version}</version>
         </dependency>
 

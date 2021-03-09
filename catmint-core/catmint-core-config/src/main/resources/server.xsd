@@ -30,6 +30,21 @@
                         <xs:documentation>服务监听ip</xs:documentation>
                     </xs:annotation>
                 </xs:element>
+                <xs:element name="dialect" type="xs:string" default="mysql">
+                    <xs:simpleType>
+                        <xs:annotation>
+                            <xs:documentation>数据库驱动信息</xs:documentation>
+                        </xs:annotation>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="MySQL"/>
+                            <xs:enumeration value="postgresql"/>
+                            <xs:enumeration value="mariadb"/>
+                            <xs:enumeration value="oracle"/>
+                            <xs:enumeration value="sqlserver"/>
+                            <xs:enumeration value="db2"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
                 <xs:element name="user" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>数据库用户名</xs:documentation>
@@ -40,21 +55,6 @@
                                 <xs:annotation>
                                     <xs:documentation>数据库密码</xs:documentation>
                                 </xs:annotation>
-                            </xs:element>
-                            <xs:element name="dialect" type="xs:string" default="mysql">
-                                <xs:simpleType>
-                                    <xs:annotation>
-                                        <xs:documentation>数据库驱动信息</xs:documentation>
-                                    </xs:annotation>
-                                    <xs:restriction base="xs:string">
-                                        <xs:enumeration value="mysql"/>
-                                        <xs:enumeration value="postgresql"/>
-                                        <xs:enumeration value="mariadb"/>
-                                        <xs:enumeration value="oracle"/>
-                                        <xs:enumeration value="sqlserver"/>
-                                        <xs:enumeration value="db2"/>
-                                    </xs:restriction>
-                                </xs:simpleType>
                             </xs:element>
                             <xs:element name="max-result-conut" type="xs:int" default="500">
                                 <xs:annotation>

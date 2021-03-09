@@ -11,5 +11,11 @@
 
     <artifactId>catmint-core-execute</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.catmint</groupId>
+            <artifactId>catmint-core-route</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

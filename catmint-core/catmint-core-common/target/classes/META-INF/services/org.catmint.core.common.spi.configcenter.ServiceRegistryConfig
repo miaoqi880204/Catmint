@@ -1,0 +1,2 @@
+org.catmint.core.common.spi.configcenter.zookeeper.ZkRegistyConfig
+org.catmint.core.common.spi.configcenter.local.RegistyXmlConfig

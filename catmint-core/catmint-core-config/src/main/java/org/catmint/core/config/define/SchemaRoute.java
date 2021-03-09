@@ -24,7 +24,7 @@ import java.util.LinkedList;
 public class SchemaRoute implements Serializable {
     private static final long serialVersionUID = -6507834333037005312L;
     @JacksonXmlProperty(localName = "routes")
-    private LinkedList<Route> rules;
+    private LinkedList<Route> routes;
 
     @Getter
     @Setter
@@ -40,27 +40,27 @@ public class SchemaRoute implements Serializable {
         private String heartBeat;
         @JacksonXmlProperty(localName = "master-host")
         private MasterHost masterHost;
-    }
 
-    @Getter
-    @Setter
-    public static class MasterHost implements Serializable{
-        private static final long serialVersionUID = -1070201645257891590L;
-        @JacksonXmlProperty(localName = "url")
-        private String url;
-        @JacksonXmlProperty(localName = "read-proportion")
-        private int readProportion;
-        @JacksonXmlProperty(localName = "slaves")
-        private LinkedList<Slave> slaves;
-    }
+        @Getter
+        @Setter
+        public static class MasterHost implements Serializable{
+            private static final long serialVersionUID = -1070201645257891590L;
+            @JacksonXmlProperty(localName = "url")
+            private String url;
+            @JacksonXmlProperty(localName = "read-proportion")
+            private int readProportion;
+            @JacksonXmlProperty(localName = "slaves")
+            private LinkedList<Slave> slaves;
+        }
 
-    @Getter
-    @Setter
-    public static class Slave implements Serializable{
-        private static final long serialVersionUID = -6656231175824030126L;
-        @JacksonXmlProperty(localName = "url")
-        private String url;
-        @JacksonXmlProperty(localName = "read-proportion")
-        private int readProportion;
+        @Getter
+        @Setter
+        public static class Slave implements Serializable{
+            private static final long serialVersionUID = -6656231175824030126L;
+            @JacksonXmlProperty(localName = "url")
+            private String url;
+            @JacksonXmlProperty(localName = "read-proportion")
+            private int readProportion;
+        }
     }
 }
