@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 /**
- * <p>Title:</p>
+ * <p>Title:全局执行器接口</p>
  * <p>Description:</p>
  *
  * @author QIQI

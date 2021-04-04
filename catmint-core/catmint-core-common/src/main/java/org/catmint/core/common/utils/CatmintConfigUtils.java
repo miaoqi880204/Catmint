@@ -49,8 +49,8 @@ public final class CatmintConfigUtils {
                 }
             }
             return (T) baseConf;
-        }catch (Exception ex){
-            log.error( "CatmintConfigUtils.getBaseConf is error:",ex );
+        } catch (Exception ex) {
+            log.error( "CatmintConfigUtils.getBaseConf is error:", ex );
             return null;
         }
     }
@@ -74,14 +74,14 @@ public final class CatmintConfigUtils {
         }
     }
 
-    public static LinkedList<String> getDatabases(final String userName){
+    public static LinkedList<String> getDatabases(final String userName) {
         LinkedList<String> databaseList = new LinkedList<>();
         proxyConfigMap.get( userName ).getSchemaConfigLinkedHashMap().values().stream()
                 .map( schemaConfig -> schemaConfig.getDataNodeConfig().getDatabases() ).collect( Collectors.toList() ).forEach( strings -> databaseList.addAll( strings ) );
         return databaseList;
     }
 
-    public static Optional<ProxyUser> getProxyUser(final String userName){
+    public static Optional<ProxyUser> getProxyUser(final String userName) {
         return Optional.ofNullable( proxyConfigMap.get( userName ) );
     }
 
@@ -129,13 +129,17 @@ public final class CatmintConfigUtils {
                 ProxyUser.DataNodeConfig dataNodeConfig = new ProxyUser.DataNodeConfig();
                 PropertyUtils.copyProperties( dataNodeConfig, dataNode );
                 dataNodeConfig.setDatabases( getDatabases( dataNode ) );
-                SchemaRoute schemaRoute = (SchemaRoute) AggregationConfig.CONFIG.get( ConfigConstant.SCHEMA_ROUTE );
-                for (SchemaRoute.Route route : schemaRoute.getRoutes()) {
-                    if (route.getName().equals( dataNode.getRoute() )) {
-                        dataNodeConfig.setRouteConfig( route );
-                    }
-                }
+                saveRoute( dataNode, dataNodeConfig );
                 schemaConfig.setDataNodeConfig( dataNodeConfig );
+            }
+        }
+    }
+
+    private static void saveRoute(SchemaDataNode.DataNode dataNode, ProxyUser.DataNodeConfig dataNodeConfig) {
+        SchemaRoute schemaRoute = (SchemaRoute) AggregationConfig.CONFIG.get( ConfigConstant.SCHEMA_ROUTE );
+        for (SchemaRoute.Route route : schemaRoute.getRoutes()) {
+            if (route.getName().equals( dataNode.getRoute() )) {
+                dataNodeConfig.setRouteConfig( route );
             }
         }
     }
